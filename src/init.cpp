@@ -1,15 +1,10 @@
-#include "oxygine-framework.h"
-
-using namespace oxygine;
+#include "Snake/SnakeBody.h"
 
 void example_preinit () {}
 
 void example_init ()
 {
-    spSprite sprite = new ColorRectSprite;
-    sprite->setPosition(300, 300);
-    sprite->setSize(100, 100);
-    sprite->attachTo(getStage());
+    new SnakeBody;
 }
 
 void example_update() {}

@@ -1,14 +1,14 @@
 cmake_minimum_required (VERSION 2.6)
 project (Snake)
 
-add_subdirectory(../../oxygine/oxygine-framework oxygine-framework)
+add_subdirectory(../oxygine/oxygine-framework oxygine-framework)
 add_definitions(${OXYGINE_DEFINITIONS})
 include_directories(${OXYGINE_INCLUDE_DIRS})
 link_directories(${OXYGINE_LIBRARY_DIRS})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OXYGINE_CXX_FLAGS}")
 
-add_executable(Snake src/main.cpp src/init.cpp src/init.h)
+add_executable(Snake src/main.cpp src/init.cpp src/Snake/SnakeBody.cpp src/init.h src/Snake/SnakeBody.h)
 target_link_libraries(Snake ${OXYGINE_CORE_LIBS})
 
 

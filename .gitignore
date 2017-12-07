@@ -1,4 +1,6 @@
 .idea/
+cmake-build-debug/
 
-./proj.cmake/CMakeLists.txt
-./proj.cmake/build/
+proj.cmake/CMakeLists.txt
+proj.cmake/build/
+data-ram/
