@@ -1,0 +1,3 @@
+/home/molnarland/Projects/snake/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/molnarland/Projects/snake/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/molnarland/Projects/snake/cmake-build-debug/CMakeFiles/Snake.dir
