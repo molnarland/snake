@@ -1,0 +1,14 @@
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/CMakeFiles/install/strip.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/CMakeFiles/install/local.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/CMakeFiles/Snake.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/CMakeFiles/install.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/CMakeFiles/list_install_components.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/CMakeFiles/edit_cache.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/CMakeFiles/rebuild_cache.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/oxygine-framework/CMakeFiles/install/strip.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/oxygine-framework/CMakeFiles/install/local.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/oxygine-framework/CMakeFiles/oxygine-framework.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/oxygine-framework/CMakeFiles/install.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/oxygine-framework/CMakeFiles/list_install_components.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/oxygine-framework/CMakeFiles/edit_cache.dir
+/opt/lampp/htdocs/Projects/snake/proj.cmake/build/oxygine-framework/CMakeFiles/rebuild_cache.dir
