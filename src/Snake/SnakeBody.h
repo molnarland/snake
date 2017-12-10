@@ -5,13 +5,15 @@
 
 using namespace oxygine;
 
-namespace Snake
+namespace Kigyo
 {
     class SnakeBody : public ColorRectSprite
     {
     public:
         long positionX;
         long positionY;
+
+//        time_t startTime;
 
         SnakeBody ();
 
@@ -24,15 +26,14 @@ namespace Snake
         const signed char WIDTH = 50;
         const signed char HEIGHT = 50;
 
-        const signed char SPEED_X = WIDTH;
-        const signed char SPEED_Y = HEIGHT;
+        const signed char STEP_X = WIDTH;
+        const signed char STEP_Y = HEIGHT;
 
         const signed char delay = 100;
 
         void go (const EventCallback &callback);
-        void pressArrow (Event *ev);
     };
-}
+};
 
 
 #endif //SNAKE_SNAKEBODY_H

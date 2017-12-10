@@ -1,6 +1,5 @@
-#include "Snake/SnakeBody.h"
+#include "Snake/Snake.h"
 
-using namespace Snake;
 
 void example_preinit () {}
 
@@ -24,7 +23,8 @@ void example_init ()
 //
 //    bla(sprite, 100);
 
-    SnakeBody* snakeBody = new SnakeBody;
+    Kigyo::Snake* snake = new Kigyo::Snake;
+
 //    snakeBody->goLeft();
 }
 
