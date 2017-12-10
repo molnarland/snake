@@ -3,6 +3,7 @@
 
 #include "SnakeBody.h"
 #include <deque>
+#include <SDL_keycode.h>
 
 namespace Kigyo
 {
@@ -13,13 +14,28 @@ namespace Kigyo
     public:
         Snake();
 
-    protected:
-        friend class SnakeBody;
-
     private:
-        std::deque<spSnakeBody> bodies;
+//        friend class SnakeBody;
 
+        const char MOVE_UP = 'U';
+        const char MOVE_LEFT = 'L';
+        const char MOVE_DOWN = 'D';
+        const char MOVE_RIGHT = 'R';
+
+        std::deque<spSnakeBody> bodies;
+        char currentMoveDirection;
+
+
+        void moveUp ();
+        void moveLeft ();
+        void moveDown ();
+        void moveRight ();
         void pressArrow (Event *ev);
+
+        bool canMoveUp ();
+        bool canMoveLeft ();
+        bool canMoveDown ();
+        bool canMoveRight ();
     };
 }
 

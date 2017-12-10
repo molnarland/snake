@@ -29,7 +29,7 @@ namespace Kigyo
         const signed char STEP_X = WIDTH;
         const signed char STEP_Y = HEIGHT;
 
-        const signed char delay = 100;
+        const signed char delay = 50;
 
         void go (const EventCallback &callback);
     };

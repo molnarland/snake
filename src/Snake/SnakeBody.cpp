@@ -21,11 +21,11 @@ namespace Kigyo
         go(CLOSURE(this, &SnakeBody::goUp));
     }
 
-    void SnakeBody::goRight (Event *)
+    void SnakeBody::goLeft (Event *)
     {
         positionX -= STEP_X;
 
-        go(CLOSURE(this, &SnakeBody::goRight));
+        go(CLOSURE(this, &SnakeBody::goLeft));
     }
 
     void SnakeBody::goDown (Event *)
@@ -35,11 +35,11 @@ namespace Kigyo
         go(CLOSURE(this, &SnakeBody::goDown));
     }
 
-    void SnakeBody::goLeft (Event *)
+    void SnakeBody::goRight (Event *)
     {
         positionX += STEP_X;
 
-        go(CLOSURE(this, &SnakeBody::goLeft));
+        go(CLOSURE(this, &SnakeBody::goRight));
     }
 
     void SnakeBody::go (const EventCallback &callback)
