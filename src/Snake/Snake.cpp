@@ -1,6 +1,8 @@
 #include "Snake.h"
 #include "oxygine-framework.h"
 
+
+
 namespace Game
 {
     Snake::Snake (bool* canGo)

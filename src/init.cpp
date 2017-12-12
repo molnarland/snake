@@ -35,6 +35,8 @@ void example_update()
 {
     if (firstMove)
     {
+
+        //TODO check snake bodies in every update
 //    canGo = false;
 //    canGo = true;
         firstMove = false;
