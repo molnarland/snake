@@ -2,7 +2,7 @@
 #include <core/oxygine.h>
 #include "Snake/Snake.h"
 
-Kigyo::Snake* snake;
+Game::Snake* snake;
 bool canGo = true;
 bool firstMove = true;
 
@@ -27,7 +27,7 @@ void example_init ()
 //    sprite->setPosition(100, 100);
 //    sprite->attachTo(oxygine::getStage());
 
-    snake = new Kigyo::Snake((bool *) canGo);
+    snake = new Game::Snake((bool *) canGo);
 //    update(snake);
 }
 
@@ -36,7 +36,6 @@ void example_update()
     if (firstMove)
     {
 //    canGo = false;
-        snake->moveRight();
 //    canGo = true;
         firstMove = false;
     }

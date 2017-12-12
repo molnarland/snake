@@ -1,58 +1,78 @@
 #include "Snake.h"
 #include "oxygine-framework.h"
-#include "Directions.h"
 
-namespace Kigyo
+namespace Game
 {
-    Snake::Snake (bool *canGo)
+    Snake::Snake (bool* canGo)
     {
-        _canGo = canGo;
+//        _canGo = canGo;
 
-        bodies[0] = new SnakeBody(10, 10, DELAY);
+        bodies.push_back(new SnakeBody(10, 10, DELAY));
+        bodies.push_back(new SnakeBody(9, 10, DELAY));
 
         core::getDispatcher()->addEventListener(core::EVENT_SYSTEM, CLOSURE(this, &Snake::pressArrow));
 
-//        moveRight();
+        start();
     }
 
-    void Snake::moveUp ()
+    void Snake::start ()
+    {
+        throughAllBody([this] (unsigned long index)
+                       {
+                           this->bodies[index]->goRight(nullptr);
+                       });
+    }
+
+
+    void Snake::throughAllBody (std::function <void (unsigned long index)> callback)
+    {
+        unsigned long snakeLength = bodies.size();
+
+        for (unsigned long index = 0; index < snakeLength; index++)
+        {
+            callback(index);
+        }
+    }
+
+    void Snake::moveUp (unsigned long index = 1)
     {
         currentMoveDirection = DIRECTIONS.UP;
 
-//        bodies[0]->setDirection(DIRECTIONS.UP);
-        bodies[0]->goUp(NULL);
+        bodies[index]->goUp(nullptr);
     }
 
-    void Snake::moveLeft ()
+    void Snake::moveLeft (unsigned long index = 1)
     {
         currentMoveDirection = DIRECTIONS.LEFT;
 
-        bodies[0]->goLeft(NULL);
+        bodies[index]->goLeft(nullptr);
     }
 
-    void Snake::moveDown ()
+    void Snake::moveDown (unsigned long index = 1)
     {
         currentMoveDirection = DIRECTIONS.DOWN;
 
-        bodies[0]->goDown(NULL);
+        bodies[index]->goDown(nullptr);
     }
 
-    void Snake::moveRight ()
+    void Snake::moveRight (unsigned long index = 1)
     {
         currentMoveDirection = DIRECTIONS.RIGHT;
 
-        bodies[0]->goRight(NULL);
+        bodies[index]->goRight(nullptr);
     }
 
 
     bool Snake::canMoveUp ()
     {
-        return currentMoveDirection == DIRECTIONS.RIGHT || currentMoveDirection == DIRECTIONS.LEFT;
+        return bodies[0]->getCanMove()
+               && (currentMoveDirection == DIRECTIONS.RIGHT || currentMoveDirection == DIRECTIONS.LEFT);
     }
 
     bool Snake::canMoveLeft ()
     {
-        return currentMoveDirection == DIRECTIONS.UP || currentMoveDirection == DIRECTIONS.DOWN;
+        return bodies[0]->getCanMove()
+               && (currentMoveDirection == DIRECTIONS.UP || currentMoveDirection == DIRECTIONS.DOWN);
     }
 
     bool Snake::canMoveDown ()
@@ -65,60 +85,50 @@ namespace Kigyo
         return canMoveLeft();
     }
 
-    void Snake::pressArrow (Event *ev)
+    void Snake::pressArrow (Event* ev)
     {
-        if (!bodies[0]->dontMove)
+        SDL_Event* event = (SDL_Event*) ev->userData;
+
+        if (event->type != SDL_KEYDOWN)
         {
-            SDL_Event *event = (SDL_Event *) ev->userData;
-
-            if (event->type != SDL_KEYDOWN)
-            {
-                return;
-            }
-
-            SDL_Keycode keycode = event->key.keysym.sym;
-
-            switch (keycode)
-            {
-                case SDLK_w:
-                    if (canMoveUp())
-                    {
-                        bodies[0]->dontMove = true;
-                        bodies[0]->removeTweens();
-//                    sleep(getTimeMS() % DELAY);
-                        moveUp();
-                    }
-                    break;
-                case SDLK_a:
-                    if (canMoveLeft())
-                    {
-                        bodies[0]->dontMove = true;
-                        bodies[0]->removeTweens();
-//                    sleep(getTimeMS() % DELAY);
-                        moveLeft();
-                    }
-                    break;
-                case SDLK_s:
-                    if (canMoveDown())
-                    {
-                        bodies[0]->dontMove = true;
-                        bodies[0]->removeTweens();
-//                    sleep(getTimeMS() % DELAY);
-                        moveDown();
-                    }
-                    break;
-                case SDLK_d:
-                    if (canMoveRight())
-                    {
-                        bodies[0]->dontMove = true;
-                        bodies[0]->removeTweens();
-//                    sleep(getTimeMS() % DELAY);
-                        moveRight();
-                    }
-                    break;
-                default:
-                    break;
-            }
+            return;
         }
+
+        SDL_Keycode keycode = event->key.keysym.sym;
+
+        switch (keycode)
+        {
+            case SDLK_w:
+                if (canMoveUp())
+                {
+                    bodies[0]->removeTweens();
+                    moveUp();
+                }
+                break;
+            case SDLK_a:
+                if (canMoveLeft())
+                {
+                    bodies[0]->removeTweens();
+                    moveLeft();
+                }
+                break;
+            case SDLK_s:
+                if (canMoveDown())
+                {
+                    bodies[0]->removeTweens();
+                    moveDown();
+                }
+                break;
+            case SDLK_d:
+                if (canMoveRight())
+                {
+                    bodies[0]->removeTweens();
+                    moveRight();
+                }
+                break;
+            default:
+                break;
+        }
+
     }
 }
