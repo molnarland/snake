@@ -1,50 +1,91 @@
-#include <Stage.h>
+#include <core/oxygine.h>
 #include "SnakeBody.h"
+#include "Directions.h"
 
 namespace Kigyo
 {
-    SnakeBody::SnakeBody ()
+    SnakeBody::SnakeBody (signed short startPositionX, signed short startPositionY, timeMS delay)
     {
-        positionX = 100;
-        positionY = 100;
+        _positionX = startPositionX * STEP_X;
+        _positionY = startPositionY * STEP_Y;
+        _delay = delay;
 
-        setSize(WIDTH, HEIGHT);
+        setSize((float) WIDTH, (float) HEIGHT);
         setColor(0, 0, 0, 255);
-        setPosition(positionX, positionY);
-        attachTo(oxygine::getStage());
+        setPosition((float) _positionX, (float) _positionY);
+        attachTo(getStage());
     }
+
+    void SnakeBody::setDirection (Direction direction)
+    {
+        _directon = direction;
+    }
+
 
     void SnakeBody::goUp (Event *)
     {
-        positionY -= STEP_Y;
+        if (!dontMove)
+        {
+            printf("moveUp: ");
+            _positionY -= STEP_Y;
+        }
+        else
+        {
+            dontMove = false;
+        }
 
         go(CLOSURE(this, &SnakeBody::goUp));
     }
 
     void SnakeBody::goLeft (Event *)
     {
-        positionX -= STEP_X;
+        if (!dontMove)
+        {
+            printf("moveLeft: ");
+            _positionX -= STEP_X;
+        }
+        else
+        {
+            dontMove = false;
+        }
 
         go(CLOSURE(this, &SnakeBody::goLeft));
     }
 
     void SnakeBody::goDown (Event *)
     {
-        positionY += STEP_Y;
+        if (!dontMove)
+        {
+            printf("moveDown: ");
+            _positionY += STEP_Y;
+        }
+        else
+        {
+            dontMove = false;
+        }
 
         go(CLOSURE(this, &SnakeBody::goDown));
     }
 
     void SnakeBody::goRight (Event *)
     {
-        positionX += STEP_X;
+        if (!dontMove)
+        {
+            printf("moveRight: ");
+            _positionX += STEP_X;
+        }
+        else
+        {
+            dontMove = false;
+        }
 
         go(CLOSURE(this, &SnakeBody::goRight));
     }
 
     void SnakeBody::go (const EventCallback &callback)
     {
-        addTween(ColorRectSprite::TweenPosition(positionX, positionY),
-                 TweenOptions(1).delay(delay).doneCallback(callback));
+        printf("%d - %d\n", (int) _positionX, (int) _positionY);
+        addTween(ColorRectSprite::TweenPosition((int) _positionX, (int) _positionY),
+                 TweenOptions(1)/*.delay(_delay)*/.doneCallback(callback));
     }
 }

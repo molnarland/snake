@@ -8,7 +8,7 @@ link_directories(${OXYGINE_LIBRARY_DIRS})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OXYGINE_CXX_FLAGS}")
 
-add_executable(Snake src/main.cpp src/init.cpp src/Snake/SnakeBody.cpp src/Snake/Snake.cpp src/init.h src/Snake/Snake.h src/Snake/SnakeBody.h)
+add_executable(Snake src/main.cpp src/init.cpp src/Snake/SnakeBody.cpp src/Snake/Snake.cpp src/init.h src/Snake/Snake.h src/Snake/SnakeBody.h src/Snake/Directions.h)
 target_link_libraries(Snake ${OXYGINE_CORE_LIBS})
 
 

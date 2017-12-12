@@ -12,24 +12,24 @@ namespace Kigyo
     class Snake
     {
     public:
-        Snake();
+        Snake(bool *canGo);
 
+        void moveLeft ();
+        void moveUp ();
+        void moveDown ();
+        void moveRight ();
+
+        bool *_canGo;
     private:
 //        friend class SnakeBody;
-
-        const char MOVE_UP = 'U';
-        const char MOVE_LEFT = 'L';
-        const char MOVE_DOWN = 'D';
-        const char MOVE_RIGHT = 'R';
 
         std::deque<spSnakeBody> bodies;
         char currentMoveDirection;
 
+        const timeMS DELAY = 100;
 
-        void moveUp ();
-        void moveLeft ();
-        void moveDown ();
-        void moveRight ();
+
+
         void pressArrow (Event *ev);
 
         bool canMoveUp ();

@@ -1,4 +1,6 @@
+#include <Stage.h>
 #include <ColorRectSprite.h>
+#include "Directions.h"
 
 #ifndef SNAKE_SNAKEBODY_H
 #define SNAKE_SNAKEBODY_H
@@ -10,26 +12,32 @@ namespace Kigyo
     class SnakeBody : public ColorRectSprite
     {
     public:
-        long positionX;
-        long positionY;
+        double _positionX;
+        double _positionY;
 
 //        time_t startTime;
 
-        SnakeBody ();
+        SnakeBody (signed short startPositionX, signed short startPositionY, timeMS delay);
 
         void goUp (Event*);
         void goRight (Event*);
         void goDown (Event*);
         void goLeft (Event*);
 
+        void setDirection (Direction direction);
+
+        bool dontMove = false;
+
     private:
-        const signed char WIDTH = 50;
-        const signed char HEIGHT = 50;
+        const double WIDTH = getStage()->getWidth() / 50;
+        const double HEIGHT = getStage()->getHeight() / (50 / (getStage()->getWidth() / getStage()->getHeight()));
 
-        const signed char STEP_X = WIDTH;
-        const signed char STEP_Y = HEIGHT;
+        const double STEP_X = WIDTH;
+        const double STEP_Y = HEIGHT;
 
-        const signed char delay = 50;
+        Direction _directon;
+
+        timeMS _delay;
 
         void go (const EventCallback &callback);
     };
