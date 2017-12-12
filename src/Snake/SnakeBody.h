@@ -1,13 +1,14 @@
 #include <Stage.h>
 #include <ColorRectSprite.h>
-#include "Directions.h"
+#include "../Objects/Directions.h"
 
 #ifndef SNAKE_SNAKEBODY_H
 #define SNAKE_SNAKEBODY_H
 
 using namespace oxygine;
+using namespace GameObjects;
 
-namespace Kigyo
+namespace Game
 {
     class SnakeBody : public ColorRectSprite
     {
@@ -26,7 +27,8 @@ namespace Kigyo
 
         void setDirection (Direction direction);
 
-        bool dontMove = false;
+        void setCanMove (bool canMove);
+        bool getCanMove ();
 
     private:
         const double WIDTH = getStage()->getWidth() / 50;
@@ -34,6 +36,8 @@ namespace Kigyo
 
         const double STEP_X = WIDTH;
         const double STEP_Y = HEIGHT;
+
+        bool _canMove = true;
 
         Direction _directon;
 

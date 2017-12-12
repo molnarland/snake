@@ -1,8 +1,7 @@
 #include <core/oxygine.h>
 #include "SnakeBody.h"
-#include "Directions.h"
 
-namespace Kigyo
+namespace Game
 {
     SnakeBody::SnakeBody (signed short startPositionX, signed short startPositionY, timeMS delay)
     {
@@ -21,17 +20,26 @@ namespace Kigyo
         _directon = direction;
     }
 
+    bool SnakeBody::getCanMove ()
+    {
+        return _canMove;
+    }
+
+    void SnakeBody::setCanMove (bool canMove)
+    {
+        _canMove = canMove;
+    }
 
     void SnakeBody::goUp (Event *)
     {
-        if (!dontMove)
+        if (_canMove)
         {
             printf("moveUp: ");
             _positionY -= STEP_Y;
         }
         else
         {
-            dontMove = false;
+            _canMove = false;
         }
 
         go(CLOSURE(this, &SnakeBody::goUp));
@@ -39,14 +47,14 @@ namespace Kigyo
 
     void SnakeBody::goLeft (Event *)
     {
-        if (!dontMove)
+        if (_canMove)
         {
             printf("moveLeft: ");
             _positionX -= STEP_X;
         }
         else
         {
-            dontMove = false;
+            _canMove = false;
         }
 
         go(CLOSURE(this, &SnakeBody::goLeft));
@@ -54,14 +62,14 @@ namespace Kigyo
 
     void SnakeBody::goDown (Event *)
     {
-        if (!dontMove)
+        if (_canMove)
         {
             printf("moveDown: ");
             _positionY += STEP_Y;
         }
         else
         {
-            dontMove = false;
+            _canMove = false;
         }
 
         go(CLOSURE(this, &SnakeBody::goDown));
@@ -69,14 +77,14 @@ namespace Kigyo
 
     void SnakeBody::goRight (Event *)
     {
-        if (!dontMove)
+        if (_canMove)
         {
             printf("moveRight: ");
             _positionX += STEP_X;
         }
         else
         {
-            dontMove = false;
+            _canMove = false;
         }
 
         go(CLOSURE(this, &SnakeBody::goRight));
