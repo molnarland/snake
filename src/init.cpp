@@ -1,9 +1,8 @@
 #include <iostream>
 #include <core/oxygine.h>
-#include "Snake/Snake.h"
+#include "Snake/Brain.h"
 
-Game::Snake* snake;
-bool canGo = true;
+Game::Brain* brain;
 bool firstMove = true;
 
 void example_preinit () {}
@@ -27,7 +26,7 @@ void example_init ()
 //    sprite->setPosition(100, 100);
 //    sprite->attachTo(oxygine::getStage());
 
-    snake = new Game::Snake((bool *) canGo);
+    brain = new Game::Brain();
 //    update(snake);
 }
 

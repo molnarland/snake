@@ -1,17 +1,16 @@
 #ifndef SNAKE_DIRECTIONS_H
 #define SNAKE_DIRECTIONS_H
 
-namespace GameObjects
+namespace GameObject
 {
-    struct
+    class Direction
     {
-        char UP = 'U';
-        char LEFT = 'L';
-        char DOWN = 'D';
-        char RIGHT = 'R';
-    } DIRECTIONS;
-
-    typedef char Direction;
+    public:
+        const static char UP = 'U';
+        const static char LEFT = 'L';
+        const static char DOWN = 'D';
+        const static char RIGHT = 'D';
+    };
 }
 
 #endif //SNAKE_DIRECTIONS_H

@@ -96,4 +96,9 @@ namespace Game
         addTween(ColorRectSprite::TweenPosition((int) _positionX, (int) _positionY),
                  TweenOptions(1)/*.delay(_delay)*/.doneCallback(callback));
     }
+
+    position_t SnakeBody::getPosition ()
+    {
+        return {_positionX, _positionY};
+    }
 }

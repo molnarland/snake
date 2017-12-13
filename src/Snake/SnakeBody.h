@@ -1,21 +1,20 @@
-#include <Stage.h>
-#include <ColorRectSprite.h>
-#include "../Objects/Directions.h"
-
 #ifndef SNAKE_SNAKEBODY_H
 #define SNAKE_SNAKEBODY_H
 
+#include <Stage.h>
+#include <ColorRectSprite.h>
+#include "../Objects/Directions.h"
+#include "../Objects/Position.h"
+
+
 using namespace oxygine;
-using namespace GameObjects;
+using namespace GameObject;
 
 namespace Game
 {
     class SnakeBody : public ColorRectSprite
     {
     public:
-        double _positionX;
-        double _positionY;
-
 //        time_t startTime;
 
         SnakeBody (signed short startPositionX, signed short startPositionY, timeMS delay);
@@ -30,7 +29,11 @@ namespace Game
         void setCanMove (bool canMove);
         bool getCanMove ();
 
+        position_t getPosition ();
     private:
+        double _positionX;
+        double _positionY;
+
         const double WIDTH = getStage()->getWidth() / 50;
         const double HEIGHT = getStage()->getHeight() / (50 / (getStage()->getWidth() / getStage()->getHeight()));
 

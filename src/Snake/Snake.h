@@ -12,11 +12,14 @@ namespace Game
     class Snake
     {
     public:
-        Snake (bool* canGo);
+        Snake ();
 
-        void check ();
+    protected:
+        void moveUp (signed long index = 1);
+        void moveLeft (signed long index = 1);
+        void moveDown (signed long index = 1);
 
-        bool* _canMove;
+        void moveRight (signed long index = 1);
     private:
 //        friend class SnakeBody;
 
@@ -33,10 +36,6 @@ namespace Game
         bool canMoveDown ();
         bool canMoveRight ();
 
-        void moveUp (unsigned long index = 1);
-        void moveLeft (unsigned long index = 1);
-        void moveDown (unsigned long index = 1);
-        void moveRight (unsigned long index = 1);
         void start ();
     };
 }

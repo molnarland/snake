@@ -5,7 +5,7 @@
 
 namespace Game
 {
-    Snake::Snake (bool* canGo)
+    Snake::Snake ()
     {
 //        _canGo = canGo;
 
@@ -36,45 +36,44 @@ namespace Game
         }
     }
 
-    void Snake::moveUp (unsigned long index = 1)
+    void Snake::moveUp (signed long index)
     {
-        currentMoveDirection = DIRECTIONS.UP;
+        currentMoveDirection = Direction::UP;
 
         bodies[index]->goUp(nullptr);
     }
 
-    void Snake::moveLeft (unsigned long index = 1)
+    void Snake::moveLeft (signed long index)
     {
-        currentMoveDirection = DIRECTIONS.LEFT;
+        currentMoveDirection = Direction::LEFT;
 
         bodies[index]->goLeft(nullptr);
     }
 
-    void Snake::moveDown (unsigned long index = 1)
+    void Snake::moveDown (signed long index)
     {
-        currentMoveDirection = DIRECTIONS.DOWN;
+        currentMoveDirection = Direction::DOWN;
 
         bodies[index]->goDown(nullptr);
     }
 
-    void Snake::moveRight (unsigned long index = 1)
+    void Snake::moveRight (signed long index)
     {
-        currentMoveDirection = DIRECTIONS.RIGHT;
+        currentMoveDirection = Direction::RIGHT;
 
         bodies[index]->goRight(nullptr);
     }
 
-
     bool Snake::canMoveUp ()
     {
         return bodies[0]->getCanMove()
-               && (currentMoveDirection == DIRECTIONS.RIGHT || currentMoveDirection == DIRECTIONS.LEFT);
+               && (currentMoveDirection == Direction::RIGHT || currentMoveDirection == Direction::LEFT);
     }
 
     bool Snake::canMoveLeft ()
     {
         return bodies[0]->getCanMove()
-               && (currentMoveDirection == DIRECTIONS.UP || currentMoveDirection == DIRECTIONS.DOWN);
+               && (currentMoveDirection == Direction::UP || currentMoveDirection == Direction::DOWN);
     }
 
     bool Snake::canMoveDown ()
