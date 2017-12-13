@@ -3,8 +3,10 @@
 
 #include <Stage.h>
 #include <ColorRectSprite.h>
-#include "../Objects/Directions.h"
+#include <deque>
+#include "../Objects/Direction.h"
 #include "../Objects/Position.h"
+#include "../Objects/WillMove.h"
 
 
 using namespace oxygine;
@@ -29,6 +31,9 @@ namespace Game
         void setCanMove (bool canMove);
         bool getCanMove ();
 
+        void addWillMove (unsigned short steps, char direction);
+        std::deque<will_move_t> getWillMoves ();
+
         position_t getPosition ();
     private:
         double _positionX;
@@ -41,6 +46,8 @@ namespace Game
         const double STEP_Y = HEIGHT;
 
         bool _canMove = true;
+
+        std::deque<will_move_t> _willMoves;
 
         Direction _directon;
 

@@ -29,7 +29,7 @@ namespace Game
         const timeMS DELAY = 100;
 
         void pressArrow (Event* ev);
-        void throughAllBody (std::function <void (unsigned long index)> callback);
+        void throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from = 0);
 
         bool canMoveUp ();
         bool canMoveLeft ();

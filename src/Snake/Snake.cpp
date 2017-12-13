@@ -7,8 +7,6 @@ namespace Game
 {
     Snake::Snake ()
     {
-//        _canGo = canGo;
-
         bodies.push_back(new SnakeBody(10, 10, DELAY));
         bodies.push_back(new SnakeBody(9, 10, DELAY));
 
@@ -19,6 +17,8 @@ namespace Game
 
     void Snake::start ()
     {
+        currentMoveDirection = Direction::RIGHT;
+
         throughAllBody([this] (unsigned long index)
                        {
                            this->bodies[index]->goRight(nullptr);
@@ -26,46 +26,56 @@ namespace Game
     }
 
 
-    void Snake::throughAllBody (std::function <void (unsigned long index)> callback)
+    void Snake::throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from)
     {
         unsigned long snakeLength = bodies.size();
 
-        for (unsigned long index = 0; index < snakeLength; index++)
+        for (unsigned long index = from; index < snakeLength; index++)
         {
             callback(index);
         }
     }
 
-    void Snake::moveUp (signed long index)
+    void Snake::moveUp (signed long bodyIndex)
     {
-        currentMoveDirection = Direction::UP;
+        char direction = currentMoveDirection = Direction::UP;
 
-        bodies[index]->goUp(nullptr);
+        bodies[bodyIndex]->goUp(nullptr);
+
+        if (bodyIndex == 0)
+        {
+            throughAllBody([this, direction] (unsigned long index)
+                           {
+                               bodies[index]->addWillMove(index, direction);
+                           }, 1);
+        }
     }
 
-    void Snake::moveLeft (signed long index)
+    void Snake::moveLeft (signed long bodyIndex)
     {
         currentMoveDirection = Direction::LEFT;
 
-        bodies[index]->goLeft(nullptr);
+        bodies[bodyIndex]->goLeft(nullptr);
     }
 
-    void Snake::moveDown (signed long index)
+    void Snake::moveDown (signed long bodyIndex)
     {
         currentMoveDirection = Direction::DOWN;
 
-        bodies[index]->goDown(nullptr);
+        bodies[bodyIndex]->goDown(nullptr);
     }
 
-    void Snake::moveRight (signed long index)
+    void Snake::moveRight (signed long bodyIndex)
     {
         currentMoveDirection = Direction::RIGHT;
 
-        bodies[index]->goRight(nullptr);
+        bodies[bodyIndex]->goRight(nullptr);
     }
 
     bool Snake::canMoveUp ()
     {
+        printf("%d - %d - %c\n", bodies[0]->getCanMove(), (currentMoveDirection == Direction::RIGHT ||
+                currentMoveDirection == Direction::LEFT), currentMoveDirection);
         return bodies[0]->getCanMove()
                && (currentMoveDirection == Direction::RIGHT || currentMoveDirection == Direction::LEFT);
     }

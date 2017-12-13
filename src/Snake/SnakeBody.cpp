@@ -15,9 +15,9 @@ namespace Game
         attachTo(getStage());
     }
 
-    void SnakeBody::setDirection (Direction direction)
+    void SnakeBody::addWillMove (unsigned short steps, char direction)
     {
-        _directon = direction;
+        _willMoves.push_back({steps, direction});
     }
 
     bool SnakeBody::getCanMove ()
@@ -34,12 +34,11 @@ namespace Game
     {
         if (_canMove)
         {
-            printf("moveUp: ");
             _positionY -= STEP_Y;
         }
         else
         {
-            _canMove = false;
+            setCanMove(true);
         }
 
         go(CLOSURE(this, &SnakeBody::goUp));
@@ -49,12 +48,11 @@ namespace Game
     {
         if (_canMove)
         {
-            printf("moveLeft: ");
             _positionX -= STEP_X;
         }
         else
         {
-            _canMove = false;
+            setCanMove(true);
         }
 
         go(CLOSURE(this, &SnakeBody::goLeft));
@@ -64,12 +62,11 @@ namespace Game
     {
         if (_canMove)
         {
-            printf("moveDown: ");
             _positionY += STEP_Y;
         }
         else
         {
-            _canMove = false;
+            setCanMove(true);
         }
 
         go(CLOSURE(this, &SnakeBody::goDown));
@@ -79,12 +76,11 @@ namespace Game
     {
         if (_canMove)
         {
-            printf("moveRight: ");
             _positionX += STEP_X;
         }
         else
         {
-            _canMove = false;
+            setCanMove(true);
         }
 
         go(CLOSURE(this, &SnakeBody::goRight));
@@ -92,9 +88,24 @@ namespace Game
 
     void SnakeBody::go (const EventCallback &callback)
     {
-        printf("%d - %d\n", (int) _positionX, (int) _positionY);
         addTween(ColorRectSprite::TweenPosition((int) _positionX, (int) _positionY),
                  TweenOptions(1)/*.delay(_delay)*/.doneCallback(callback));
+
+
+        unsigned long willMoveLength = _willMoves.size();
+
+        for (unsigned long index = 0; index < willMoveLength; index++) {
+            _willMoves[index].steps--;
+        }
+
+        if(_willMoves[0].steps == 0)
+        {
+//            setCanMove(false);
+//            if (_willMoves[0].directon == Direction::UP)
+//            {
+                goUp(nullptr);
+//            }
+        }
     }
 
     position_t SnakeBody::getPosition ()
