@@ -46,7 +46,7 @@ void example_update()
 
     printf("%d update \n", getTimeMS());
 
-    oxygine::sleep(99);
+    oxygine::sleep(100);
 
 //    snake->check();
 }

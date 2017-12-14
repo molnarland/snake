@@ -46,6 +46,7 @@ namespace Game
         if (_canMove)
         {
             _positionY -= STEP_Y;
+            directon = Direction::UP;
         }
         else
         {
@@ -61,6 +62,7 @@ namespace Game
         if (_canMove)
         {
             _positionX -= STEP_X;
+            directon = Direction::LEFT;
         }
         else
         {
@@ -76,6 +78,7 @@ namespace Game
         if (_canMove)
         {
             _positionY += STEP_Y;
+            directon = Direction::DOWN;
         }
         else
         {
@@ -91,6 +94,7 @@ namespace Game
         if (_canMove)
         {
             _positionX += STEP_X;
+            directon = Direction::RIGHT;
         }
         else
         {

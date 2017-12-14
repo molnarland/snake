@@ -37,6 +37,8 @@ namespace Game
 
         std::deque<will_move_t> willMoves;
 
+        char directon;
+
         position_t getPosition ();
 
     private:
@@ -50,8 +52,6 @@ namespace Game
         const double STEP_Y = HEIGHT;
 
         bool _canMove = true;
-
-        Direction _directon;
 
         timeMS _delay;
 

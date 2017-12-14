@@ -27,31 +27,56 @@ namespace Game
         throughAllBody([this] (unsigned long index)
                        {
                            printf("say go right\n");
+                           this->bodies[index]->directon = Direction::RIGHT;
                            this->bodies[index]->goRight(nullptr);
                        });
     }
 
     void Snake::check ()
     {
-        switch (currentMoveDirection)
-        {
-            case Direction::UP:
-                bodies[0]->goUp(nullptr);
-                break;
-            case Direction::LEFT:
-                bodies[0]->goLeft(nullptr);
-                break;
-            case Direction::DOWN:
-                bodies[0]->goDown(nullptr);
-                break;
-            case Direction::RIGHT:
-                bodies[0]->goRight(nullptr);
-                break;
-            default:
-                break;
-        }
+        throughAllBody([this] (unsigned long index)
+                       {
+                           if (index > 0)
+                           {
+                               std::deque <will_move_t> willMove = bodies[index]->getWillMoves();
+                               unsigned long willMoveLength = bodies[index]->willMoves.size();
 
-        throughAllBody([this](unsigned long index) {
+                               if (willMoveLength > 0)
+                               {
+                                   for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
+                                   {
+                                       bodies[index]->willMoves[moveIndex].steps--;
+                                   }
+
+                                   if (bodies[index]->willMoves[0].steps == 0)
+                                   {
+                                       bodies[index]->directon = bodies[index]->willMoves[0].directon;
+                                       bodies[index]->willMoves.pop_front();
+                                   }
+                               }
+                           }
+
+                           switch (bodies[index]->directon)
+                           {
+                               case Direction::UP:
+                                   bodies[index]->goUp(nullptr);
+                                   break;
+                               case Direction::LEFT:
+                                   bodies[index]->goLeft(nullptr);
+                                   break;
+                               case Direction::DOWN:
+                                   bodies[index]->goDown(nullptr);
+                                   break;
+                               case Direction::RIGHT:
+                                   bodies[index]->goRight(nullptr);
+                                   break;
+                               default:
+                                   break;
+
+                           }
+                       });
+
+        /*throughAllBody([this](unsigned long index) {
 //            std::deque<will_move_t> willMove = bodies[index]->getWillMoves();
             unsigned long willMoveLength = bodies[index]->willMoves.size();
 
@@ -96,7 +121,7 @@ namespace Game
                     bodies[index]->removeFirstMove();
                 }
             }
-        }, 1);
+        }, 1);*/
     }
 
     void Snake::throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from)
@@ -115,7 +140,7 @@ namespace Game
         {
             throughAllBody([this, direction] (unsigned long index)
                            {
-                               bodies[index]->addWillMove(index+2, direction);
+                               bodies[index]->addWillMove(index+1, direction);
                            }, 1);
         }
     }
@@ -126,6 +151,8 @@ namespace Game
 
 //        bodies[bodyIndex]->goUp(nullptr);
 
+        bodies[bodyIndex]->directon = direction;
+
         addWillMoveForAllBodies(direction, bodyIndex);
     }
 
@@ -134,6 +161,8 @@ namespace Game
         char direction = currentMoveDirection = Direction::LEFT;
 
 //        bodies[bodyIndex]->goLeft(nullptr);
+
+        bodies[bodyIndex]->directon = direction;
 
         addWillMoveForAllBodies(direction, bodyIndex);
     }
@@ -144,6 +173,7 @@ namespace Game
 
 //        bodies[bodyIndex]->goDown(nullptr);
 
+        bodies[bodyIndex]->directon = direction;
         addWillMoveForAllBodies(direction, bodyIndex);
     }
 
@@ -152,6 +182,7 @@ namespace Game
         char direction = currentMoveDirection = Direction::RIGHT;
 
 //        bodies[bodyIndex]->goRight(nullptr);
+        bodies[bodyIndex]->directon = direction;
 
         addWillMoveForAllBodies(direction, bodyIndex);
     }
@@ -196,28 +227,28 @@ namespace Game
             case SDLK_w:
                 if (canMoveUp())
                 {
-//                    bodies[0]->removeTweens();
+                    bodies[0]->removeTweens();
                     moveUp();
                 }
                 break;
             case SDLK_a:
                 if (canMoveLeft())
                 {
-//                    bodies[0]->removeTweens();
+                    bodies[0]->removeTweens();
                     moveLeft();
                 }
                 break;
             case SDLK_s:
                 if (canMoveDown())
                 {
-//                    bodies[0]->removeTweens();
+                    bodies[0]->removeTweens();
                     moveDown();
                 }
                 break;
             case SDLK_d:
                 if (canMoveRight())
                 {
-//                    bodies[0]->removeTweens();
+                    bodies[0]->removeTweens();
                     moveRight();
                 }
                 break;
