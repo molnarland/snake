@@ -7,28 +7,50 @@ namespace Game
 {
     Snake::Snake ()
     {
-        bodies.push_back(new SnakeBody(10, 10, DELAY));
+        spSnakeBody snakeBody = new SnakeBody(10, 10, DELAY);
+
+//        getStage()->addChild(snakeBody);
+        bodies.push_back(snakeBody);
         bodies.push_back(new SnakeBody(9, 10, DELAY));
         bodies.push_back(new SnakeBody(8, 10, DELAY));
-//        bodies.push_back(new SnakeBody(7, 10, DELAY));
+        bodies.push_back(new SnakeBody(7, 10, DELAY));
 
         core::getDispatcher()->addEventListener(core::EVENT_SYSTEM, CLOSURE(this, &Snake::pressArrow));
-
-        start();
     }
 
     void Snake::start ()
     {
+        printf("%d start\n", getTimeMS());
+
         currentMoveDirection = Direction::RIGHT;
 
         throughAllBody([this] (unsigned long index)
                        {
+                           printf("say go right\n");
                            this->bodies[index]->goRight(nullptr);
                        });
     }
 
     void Snake::check ()
     {
+        switch (currentMoveDirection)
+        {
+            case Direction::UP:
+                bodies[0]->goUp(nullptr);
+                break;
+            case Direction::LEFT:
+                bodies[0]->goLeft(nullptr);
+                break;
+            case Direction::DOWN:
+                bodies[0]->goDown(nullptr);
+                break;
+            case Direction::RIGHT:
+                bodies[0]->goRight(nullptr);
+                break;
+            default:
+                break;
+        }
+
         throughAllBody([this](unsigned long index) {
 //            std::deque<will_move_t> willMove = bodies[index]->getWillMoves();
             unsigned long willMoveLength = bodies[index]->willMoves.size();
@@ -102,7 +124,7 @@ namespace Game
     {
         char direction = currentMoveDirection = Direction::UP;
 
-        bodies[bodyIndex]->goUp(nullptr);
+//        bodies[bodyIndex]->goUp(nullptr);
 
         addWillMoveForAllBodies(direction, bodyIndex);
     }
@@ -111,7 +133,7 @@ namespace Game
     {
         char direction = currentMoveDirection = Direction::LEFT;
 
-        bodies[bodyIndex]->goLeft(nullptr);
+//        bodies[bodyIndex]->goLeft(nullptr);
 
         addWillMoveForAllBodies(direction, bodyIndex);
     }
@@ -120,7 +142,7 @@ namespace Game
     {
         char direction = currentMoveDirection = Direction::DOWN;
 
-        bodies[bodyIndex]->goDown(nullptr);
+//        bodies[bodyIndex]->goDown(nullptr);
 
         addWillMoveForAllBodies(direction, bodyIndex);
     }
@@ -129,7 +151,7 @@ namespace Game
     {
         char direction = currentMoveDirection = Direction::RIGHT;
 
-        bodies[bodyIndex]->goRight(nullptr);
+//        bodies[bodyIndex]->goRight(nullptr);
 
         addWillMoveForAllBodies(direction, bodyIndex);
     }
@@ -174,28 +196,28 @@ namespace Game
             case SDLK_w:
                 if (canMoveUp())
                 {
-                    bodies[0]->removeTweens();
+//                    bodies[0]->removeTweens();
                     moveUp();
                 }
                 break;
             case SDLK_a:
                 if (canMoveLeft())
                 {
-                    bodies[0]->removeTweens();
+//                    bodies[0]->removeTweens();
                     moveLeft();
                 }
                 break;
             case SDLK_s:
                 if (canMoveDown())
                 {
-                    bodies[0]->removeTweens();
+//                    bodies[0]->removeTweens();
                     moveDown();
                 }
                 break;
             case SDLK_d:
                 if (canMoveRight())
                 {
-                    bodies[0]->removeTweens();
+//                    bodies[0]->removeTweens();
                     moveRight();
                 }
                 break;

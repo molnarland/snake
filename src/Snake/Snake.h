@@ -15,13 +15,14 @@ namespace Game
         Snake ();
 
         void check();
+        void start ();
+        void moveRight (unsigned long index = 0);
 
     protected:
         void moveUp (unsigned long index = 0);
         void moveLeft (unsigned long index = 0);
         void moveDown (unsigned long index = 0);
 
-        void moveRight (unsigned long index = 0);
     private:
 //        friend class SnakeBody;
 
@@ -38,8 +39,6 @@ namespace Game
         bool canMoveLeft ();
         bool canMoveDown ();
         bool canMoveRight ();
-
-        void start ();
     };
 }
 

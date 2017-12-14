@@ -2,7 +2,7 @@
 #include <core/oxygine.h>
 #include "Snake/Brain.h"
 
-Game::Snake* brain;
+Game::Snake* snake;
 bool firstMove = true;
 
 void example_preinit () {}
@@ -26,7 +26,7 @@ void example_init ()
 //    sprite->setPosition(100, 100);
 //    sprite->attachTo(oxygine::getStage());
 
-    brain = new Game::Snake();
+    snake = new Game::Snake();
 //    update(snake);
 }
 
@@ -34,16 +34,21 @@ void example_update()
 {
     if (firstMove)
     {
-
-        //TODO check snake bodies in every update
 //    canGo = false;
 //    canGo = true;
         firstMove = false;
+        snake->start();
+    }
+    else
+    {
+        snake->check();
     }
 
-    oxygine::sleep(100);
+    printf("%d update \n", getTimeMS());
 
-    brain->check();
+    oxygine::sleep(99);
+
+//    snake->check();
 }
 
 void example_destroy() {}
