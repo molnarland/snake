@@ -5,4 +5,9 @@ namespace Game {
     {
 
     }
+
+    void Brain::check ()
+    {
+
+    }
 }

@@ -14,12 +14,14 @@ namespace Game
     public:
         Snake ();
 
-    protected:
-        void moveUp (signed long index = 0);
-        void moveLeft (signed long index = 0);
-        void moveDown (signed long index = 0);
+        void check();
 
-        void moveRight (signed long index = 0);
+    protected:
+        void moveUp (unsigned long index = 0);
+        void moveLeft (unsigned long index = 0);
+        void moveDown (unsigned long index = 0);
+
+        void moveRight (unsigned long index = 0);
     private:
 //        friend class SnakeBody;
 
@@ -30,6 +32,7 @@ namespace Game
 
         void pressArrow (Event* ev);
         void throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from = 0);
+        void addWillMoveForAllBodies (char direction, unsigned long bodyIndex);
 
         bool canMoveUp ();
         bool canMoveLeft ();

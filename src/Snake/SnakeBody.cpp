@@ -17,7 +17,17 @@ namespace Game
 
     void SnakeBody::addWillMove (unsigned short steps, char direction)
     {
-        _willMoves.push_back({steps, direction});
+        willMoves.push_back({steps, direction});
+    }
+
+    std::deque<will_move_t> SnakeBody::getWillMoves ()
+    {
+        return willMoves;
+    }
+
+    void SnakeBody::removeFirstMove ()
+    {
+        willMoves.pop_front();
     }
 
     bool SnakeBody::getCanMove ()
@@ -92,20 +102,38 @@ namespace Game
                  TweenOptions(1)/*.delay(_delay)*/.doneCallback(callback));
 
 
-        unsigned long willMoveLength = _willMoves.size();
+        /*unsigned long willMoveLength = willMoves.size();
 
-        for (unsigned long index = 0; index < willMoveLength; index++) {
-            _willMoves[index].steps--;
-        }
-
-        if(_willMoves[0].steps == 0)
+        for (unsigned long index = 0; index < willMoveLength; index++)
         {
-            setCanMove(false);
-            if (_willMoves[0].directon == Direction::UP)
-            {
-                goUp(nullptr);
-            }
+            willMoves[index].steps--;
         }
+
+        if (willMoves[0].steps == 0)
+        {
+//            setCanMove(false);
+
+            removeTweens(false);
+            switch (willMoves[0].directon)
+            {
+                case Direction::UP:
+                    goUp(nullptr);
+                    break;
+                case Direction::LEFT:
+                    goLeft(nullptr);
+                    break;
+                case Direction::DOWN:
+                    goDown(nullptr);
+                    break;
+                case Direction::RIGHT:
+                    goRight(nullptr);
+                    break;
+                default:
+                    break;
+            }
+
+            willMoves.pop_front();
+        }*/
     }
 
     position_t SnakeBody::getPosition ()

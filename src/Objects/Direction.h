@@ -9,7 +9,7 @@ namespace GameObject
         const static char UP = 'U';
         const static char LEFT = 'L';
         const static char DOWN = 'D';
-        const static char RIGHT = 'D';
+        const static char RIGHT = 'R';
     };
 }
 

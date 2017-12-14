@@ -2,7 +2,7 @@
 #include <core/oxygine.h>
 #include "Snake/Brain.h"
 
-Game::Brain* brain;
+Game::Snake* brain;
 bool firstMove = true;
 
 void example_preinit () {}
@@ -26,7 +26,7 @@ void example_init ()
 //    sprite->setPosition(100, 100);
 //    sprite->attachTo(oxygine::getStage());
 
-    brain = new Game::Brain();
+    brain = new Game::Snake();
 //    update(snake);
 }
 
@@ -42,6 +42,8 @@ void example_update()
     }
 
     oxygine::sleep(100);
+
+    brain->check();
 }
 
 void example_destroy() {}

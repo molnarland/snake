@@ -33,6 +33,9 @@ namespace Game
 
         void addWillMove (unsigned short steps, char direction);
         std::deque<will_move_t> getWillMoves ();
+        void removeFirstMove ();
+
+        std::deque<will_move_t> willMoves;
 
         position_t getPosition ();
     private:
@@ -46,8 +49,6 @@ namespace Game
         const double STEP_Y = HEIGHT;
 
         bool _canMove = true;
-
-        std::deque<will_move_t> _willMoves;
 
         Direction _directon;
 
