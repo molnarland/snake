@@ -1,8 +1,0 @@
-/opt/clion/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/molnarland/Projects/snake
-CMake Error at CMakeLists.txt:4 (add_subdirectory):
-  add_subdirectory given source "../../oxygine/oxygine-framework" which is
-  not an existing directory.
-
-
--- Configuring incomplete, errors occurred!
-See also "/home/molnarland/Projects/snake/cmake-build-debug/CMakeFiles/CMakeOutput.log".

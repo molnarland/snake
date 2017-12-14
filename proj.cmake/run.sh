@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+clear
+
 cp ../CMakeLists.txt ./
 node changeList.js
 
