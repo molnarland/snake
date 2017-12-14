@@ -40,10 +40,11 @@ namespace Game
                     bodies[index]->willMoves[moveIndex].steps--;
                 }
 
-                printf("%d - %c: %d\n",
+                printf("%d  %d - %c: %d\n",
+                       getTimeMS(),
                        bodies[index]->willMoves[0].steps,
                        (char16_t)bodies[index]->willMoves[0].directon,
-                       index);
+                       (int)index);
 
                 if (bodies[index]->willMoves[0].steps == 0)
                 {
