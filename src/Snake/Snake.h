@@ -15,11 +15,11 @@ namespace Game
         Snake ();
 
     protected:
-        void moveUp (signed long index = 1);
-        void moveLeft (signed long index = 1);
-        void moveDown (signed long index = 1);
+        void moveUp (signed long index = 0);
+        void moveLeft (signed long index = 0);
+        void moveDown (signed long index = 0);
 
-        void moveRight (signed long index = 1);
+        void moveRight (signed long index = 0);
     private:
 //        friend class SnakeBody;
 
