@@ -92,20 +92,20 @@ namespace Game
                  TweenOptions(1)/*.delay(_delay)*/.doneCallback(callback));
 
 
-        unsigned long willMoveLength = _willMoves.size();
-
-        for (unsigned long index = 0; index < willMoveLength; index++) {
-            _willMoves[index].steps--;
-        }
-
-        if(_willMoves[0].steps == 0)
-        {
+//        unsigned long willMoveLength = _willMoves.size();
+//
+//        for (unsigned long index = 0; index < willMoveLength; index++) {
+//            _willMoves[index].steps--;
+//        }
+//
+//        if(_willMoves[0].steps == 0)
+//        {
 //            setCanMove(false);
 //            if (_willMoves[0].directon == Direction::UP)
 //            {
-                goUp(nullptr);
+//                goUp(nullptr);
 //            }
-        }
+//        }
     }
 
     position_t SnakeBody::getPosition ()
