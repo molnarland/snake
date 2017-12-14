@@ -38,6 +38,7 @@ namespace Game
         std::deque<will_move_t> willMoves;
 
         position_t getPosition ();
+
     private:
         double _positionX;
         double _positionY;
