@@ -38,7 +38,7 @@ namespace Game
         bool canMoveDown ();
         bool canMoveRight ();
     };
-
+}
 
 
 #endif //SNAKE_SNAKE_H

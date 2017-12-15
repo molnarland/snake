@@ -1,5 +1,4 @@
 /*v0.1*/
-
 #include <core/oxygine.h>
 #include "Snake/Brain.h"
 
