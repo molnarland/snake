@@ -13,7 +13,7 @@ namespace Game
     {
     public:
         Snake ();
-        ~Snake () {};
+//        ~Snake () {};
 
         void check ();
         void start ();

@@ -1,11 +1,12 @@
 #include "Snake.h"
 #include "oxygine-framework.h"
+//#include "../consts.h"
 
 namespace Game
 {
     Snake::Snake ()
     {
-        addBody(new SnakeBody({10 * GameObject::SnakeBodySize.width, 10 * GameObject::SnakeBodySize.height}));
+        addBody(new SnakeBody({10 * 200, 10 * 200}));
 
         core::getDispatcher()->addEventListener(core::EVENT_SYSTEM, CLOSURE(this, &Snake::pressArrow));
     }
@@ -67,7 +68,7 @@ namespace Game
 
     void Snake::addBody (spSnakeBody snakeBody)
     {
-        getStage()->addChild(snakeBody);
+//        getStage()->addChild(snakeBody);
         bodies.push_back(snakeBody);
     }
 

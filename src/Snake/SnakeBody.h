@@ -7,8 +7,8 @@
 #include "../Objects/Direction.h"
 #include "../Objects/Position.h"
 #include "../Objects/WillMove.h"
-#include "../Objects/StepSize.h"
-
+#include "../consts.h"
+//#include "../Objects/StepSize.h"
 
 using namespace oxygine;
 
