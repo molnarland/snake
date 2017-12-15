@@ -2,7 +2,6 @@
 #include "oxygine-framework.h"
 
 
-
 namespace Game
 {
     Snake::Snake ()
@@ -20,108 +19,58 @@ namespace Game
 
     void Snake::start ()
     {
-        printf("%d start\n", getTimeMS());
-
         currentMoveDirection = Direction::RIGHT;
 
         throughAllBody([this] (unsigned long index)
-                       {
-                           printf("say go right\n");
-                           this->bodies[index]->directon = Direction::RIGHT;
-                           this->bodies[index]->goRight(nullptr);
-                       });
+        {
+            this->bodies[index]->directon = Direction::RIGHT;
+            this->bodies[index]->goRight(nullptr);
+        });
     }
 
     void Snake::check ()
     {
         throughAllBody([this] (unsigned long index)
-                       {
-                           if (index > 0)
-                           {
-                               std::deque <will_move_t> willMove = bodies[index]->getWillMoves();
-                               unsigned long willMoveLength = bodies[index]->willMoves.size();
-
-                               if (willMoveLength > 0)
-                               {
-                                   for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
-                                   {
-                                       bodies[index]->willMoves[moveIndex].steps--;
-                                   }
-
-                                   if (bodies[index]->willMoves[0].steps == 0)
-                                   {
-                                       bodies[index]->directon = bodies[index]->willMoves[0].directon;
-                                       bodies[index]->willMoves.pop_front();
-                                   }
-                               }
-                           }
-
-                           switch (bodies[index]->directon)
-                           {
-                               case Direction::UP:
-                                   bodies[index]->goUp(nullptr);
-                                   break;
-                               case Direction::LEFT:
-                                   bodies[index]->goLeft(nullptr);
-                                   break;
-                               case Direction::DOWN:
-                                   bodies[index]->goDown(nullptr);
-                                   break;
-                               case Direction::RIGHT:
-                                   bodies[index]->goRight(nullptr);
-                                   break;
-                               default:
-                                   break;
-
-                           }
-                       });
-
-        /*throughAllBody([this](unsigned long index) {
-//            std::deque<will_move_t> willMove = bodies[index]->getWillMoves();
-            unsigned long willMoveLength = bodies[index]->willMoves.size();
-
-            if (willMoveLength > 0)
+        {
+            if (index > 0)
             {
-                for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
+                std::deque <will_move_t> willMove = bodies[index]->getWillMoves();
+                unsigned long willMoveLength = bodies[index]->willMoves.size();
+
+                if (willMoveLength > 0)
                 {
-                    bodies[index]->willMoves[moveIndex].steps--;
-                }
-
-                printf("%d  %d - %c: %d\n",
-                       getTimeMS(),
-                       bodies[index]->willMoves[0].steps,
-                       (char16_t)bodies[index]->willMoves[0].directon,
-                       (int)index);
-
-                if (bodies[index]->willMoves[0].steps == 0)
-                {
-                    bodies[index]->removeTweens(false);
-//                    bodies[index]->setCanMove(false);
-
-//                    printf("%c\n", (char16_t )bodies[index]->willMoves[0].directon);
-
-                    switch (bodies[index]->willMoves[0].directon)
+                    for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
                     {
-                        case Direction::UP:
-                            bodies[index]->goUp(nullptr);
-                            break;
-                        case Direction::LEFT:
-                            bodies[index]->goLeft(nullptr);
-                            break;
-                        case Direction::DOWN:
-                            bodies[index]->goDown(nullptr);
-                            break;
-                        case Direction::RIGHT:
-                            bodies[index]->goRight(nullptr);
-                            break;
-                        default:
-                            break;
+                        bodies[index]->willMoves[moveIndex].steps--;
                     }
 
-                    bodies[index]->removeFirstMove();
+                    if (bodies[index]->willMoves[0].steps == 0)
+                    {
+                        bodies[index]->directon = bodies[index]->willMoves[0].directon;
+                        bodies[index]->willMoves.pop_front();
+                    }
                 }
             }
-        }, 1);*/
+
+            switch (bodies[index]->directon)
+            {
+                case Direction::UP:
+                    bodies[index]->goUp(nullptr);
+                    break;
+                case Direction::LEFT:
+                    bodies[index]->goLeft(nullptr);
+                    break;
+                case Direction::DOWN:
+                    bodies[index]->goDown(nullptr);
+                    break;
+                case Direction::RIGHT:
+                    bodies[index]->goRight(nullptr);
+                    break;
+                default:
+                    break;
+
+            }
+        });
     }
 
     void Snake::throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from)
@@ -139,17 +88,15 @@ namespace Game
         if (bodyIndex == 0)
         {
             throughAllBody([this, direction] (unsigned long index)
-                           {
-                               bodies[index]->addWillMove(index+1, direction);
-                           }, 1);
+            {
+                bodies[index]->addWillMove(index + 1, direction);
+            }, 1);
         }
     }
 
     void Snake::moveUp (unsigned long bodyIndex)
     {
         char direction = currentMoveDirection = Direction::UP;
-
-//        bodies[bodyIndex]->goUp(nullptr);
 
         bodies[bodyIndex]->directon = direction;
 
@@ -160,8 +107,6 @@ namespace Game
     {
         char direction = currentMoveDirection = Direction::LEFT;
 
-//        bodies[bodyIndex]->goLeft(nullptr);
-
         bodies[bodyIndex]->directon = direction;
 
         addWillMoveForAllBodies(direction, bodyIndex);
@@ -171,8 +116,6 @@ namespace Game
     {
         char direction = currentMoveDirection = Direction::DOWN;
 
-//        bodies[bodyIndex]->goDown(nullptr);
-
         bodies[bodyIndex]->directon = direction;
         addWillMoveForAllBodies(direction, bodyIndex);
     }
@@ -181,7 +124,6 @@ namespace Game
     {
         char direction = currentMoveDirection = Direction::RIGHT;
 
-//        bodies[bodyIndex]->goRight(nullptr);
         bodies[bodyIndex]->directon = direction;
 
         addWillMoveForAllBodies(direction, bodyIndex);
@@ -189,8 +131,6 @@ namespace Game
 
     bool Snake::canMoveUp ()
     {
-        /*printf("%d - %d - %c\n", bodies[0]->getCanMove(), (currentMoveDirection == Direction::RIGHT ||
-                currentMoveDirection == Direction::LEFT), currentMoveDirection);*/
         return bodies[0]->getCanMove()
                && (currentMoveDirection == Direction::RIGHT || currentMoveDirection == Direction::LEFT);
     }

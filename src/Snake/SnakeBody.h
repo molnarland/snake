@@ -17,8 +17,6 @@ namespace Game
     class SnakeBody : public ColorRectSprite
     {
     public:
-//        time_t startTime;
-
         SnakeBody (signed short startPositionX, signed short startPositionY, timeMS delay);
 
         void goUp (Event*);

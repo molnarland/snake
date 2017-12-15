@@ -106,41 +106,7 @@ namespace Game
 
     void SnakeBody::go (const EventCallback &callback)
     {
-        addTween(ColorRectSprite::TweenPosition((int) _positionX, (int) _positionY),
-                 TweenOptions(1)/*.delay(0)*//*.doneCallback(callback)*/);
-
-        /*unsigned long willMoveLength = willMoves.size();
-
-        for (unsigned long index = 0; index < willMoveLength; index++)
-        {
-            willMoves[index].steps--;
-        }
-
-        if (willMoves[0].steps == 0)
-        {
-//            setCanMove(false);
-
-            removeTweens(false);
-            switch (willMoves[0].directon)
-            {
-                case Direction::UP:
-                    goUp(nullptr);
-                    break;
-                case Direction::LEFT:
-                    goLeft(nullptr);
-                    break;
-                case Direction::DOWN:
-                    goDown(nullptr);
-                    break;
-                case Direction::RIGHT:
-                    goRight(nullptr);
-                    break;
-                default:
-                    break;
-            }
-
-            willMoves.pop_front();
-        }*/
+        addTween(ColorRectSprite::TweenPosition((int) _positionX, (int) _positionY), 1);
     }
 
     position_t SnakeBody::getPosition ()

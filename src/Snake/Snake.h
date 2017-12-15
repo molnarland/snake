@@ -24,8 +24,6 @@ namespace Game
         void moveDown (unsigned long index = 0);
 
     private:
-//        friend class SnakeBody;
-
         std::deque <spSnakeBody> bodies;
         char currentMoveDirection;
 
@@ -40,7 +38,7 @@ namespace Game
         bool canMoveDown ();
         bool canMoveRight ();
     };
-}
+
 
 
 #endif //SNAKE_SNAKE_H
