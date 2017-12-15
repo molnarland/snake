@@ -3,10 +3,13 @@
 
 #include "Direction.h"
 
-struct will_move_t
+namespace GameObject
 {
-    unsigned short steps;
-    char directon;
+    struct will_move_t
+    {
+        unsigned short steps;
+        char directon;
+    };
 };
 
 #endif //SNAKE_WILLMOVE_H

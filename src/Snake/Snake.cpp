@@ -1,23 +1,22 @@
 #include "Snake.h"
 #include "oxygine-framework.h"
 
-
 namespace Game
 {
     Snake::Snake ()
     {
-        addBody(new SnakeBody(10, 10));
+        addBody(new SnakeBody({10 * GameObject::SnakeBodySize.width, 10 * GameObject::SnakeBodySize.height}));
 
         core::getDispatcher()->addEventListener(core::EVENT_SYSTEM, CLOSURE(this, &Snake::pressArrow));
     }
 
     void Snake::start ()
     {
-        currentMoveDirection = Direction::RIGHT;
+        currentMoveDirection = GameObject::Direction::RIGHT;
 
         throughAllBody([this] (unsigned long index)
         {
-            this->bodies[index]->directon = Direction::RIGHT;
+            this->bodies[index]->directon = GameObject::Direction::RIGHT;
             this->bodies[index]->goRight(nullptr);
         });
     }
@@ -28,7 +27,7 @@ namespace Game
         {
             if (index > 0)
             {
-                std::deque <will_move_t> willMove = bodies[index]->getWillMoves();
+                std::deque <GameObject::will_move_t> willMove = bodies[index]->getWillMoves();
                 unsigned long willMoveLength = bodies[index]->willMoves.size();
 
                 if (willMoveLength > 0)
@@ -48,16 +47,16 @@ namespace Game
 
             switch (bodies[index]->directon)
             {
-                case Direction::UP:
+                case GameObject::Direction::UP:
                     bodies[index]->goUp(nullptr);
                     break;
-                case Direction::LEFT:
+                case GameObject::Direction::LEFT:
                     bodies[index]->goLeft(nullptr);
                     break;
-                case Direction::DOWN:
+                case GameObject::Direction::DOWN:
                     bodies[index]->goDown(nullptr);
                     break;
-                case Direction::RIGHT:
+                case GameObject::Direction::RIGHT:
                     bodies[index]->goRight(nullptr);
                     break;
                 default:
@@ -102,34 +101,34 @@ namespace Game
 
     void Snake::moveUp (unsigned long bodyIndex)
     {
-        move(bodyIndex, Direction::UP);
+        move(bodyIndex, GameObject::Direction::UP);
     }
 
     void Snake::moveLeft (unsigned long bodyIndex)
     {
-        move(bodyIndex, Direction::LEFT);
+        move(bodyIndex, GameObject::Direction::LEFT);
     }
 
     void Snake::moveDown (unsigned long bodyIndex)
     {
-        move(bodyIndex, Direction::DOWN);
+        move(bodyIndex, GameObject::Direction::DOWN);
     }
 
     void Snake::moveRight (unsigned long bodyIndex)
     {
-        move(bodyIndex, Direction::RIGHT);
+        move(bodyIndex, GameObject::Direction::RIGHT);
     }
 
     bool Snake::canMoveUp ()
     {
         return bodies[0]->getCanMove()
-               && (currentMoveDirection == Direction::RIGHT || currentMoveDirection == Direction::LEFT);
+               && (currentMoveDirection == GameObject::Direction::RIGHT || currentMoveDirection == GameObject::Direction::LEFT);
     }
 
     bool Snake::canMoveLeft ()
     {
         return bodies[0]->getCanMove()
-               && (currentMoveDirection == Direction::UP || currentMoveDirection == Direction::DOWN);
+               && (currentMoveDirection == GameObject::Direction::UP || currentMoveDirection == GameObject::Direction::DOWN);
     }
 
     bool Snake::canMoveDown ()
