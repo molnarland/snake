@@ -5,10 +5,12 @@
 
 namespace Game
 {
-    class Brain : private Snake
+    class Brain : public Snake
     {
     public:
         Brain();
+
+        void start ();
 
         void check ();
     };

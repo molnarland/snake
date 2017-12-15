@@ -3,11 +3,10 @@
 
 namespace Game
 {
-    SnakeBody::SnakeBody (signed short startPositionX, signed short startPositionY, timeMS delay)
+    SnakeBody::SnakeBody (signed short startPositionX, signed short startPositionY)
     {
         _positionX = startPositionX * STEP_X;
         _positionY = startPositionY * STEP_Y;
-        _delay = delay;
 
         setSize((float) WIDTH, (float) HEIGHT);
         setColor(0, 0, 0, 255);
@@ -42,7 +41,6 @@ namespace Game
 
     void SnakeBody::goUp (Event *)
     {
-        printf("go up away - %d\n", _canMove);
         if (_canMove)
         {
             _positionY -= STEP_Y;
@@ -58,7 +56,6 @@ namespace Game
 
     void SnakeBody::goLeft (Event *)
     {
-        printf("go left away - %d\n", _canMove);
         if (_canMove)
         {
             _positionX -= STEP_X;
@@ -74,7 +71,6 @@ namespace Game
 
     void SnakeBody::goDown (Event *)
     {
-        printf("go down away - %d\n", _canMove);
         if (_canMove)
         {
             _positionY += STEP_Y;
@@ -90,7 +86,6 @@ namespace Game
 
     void SnakeBody::goRight (Event *)
     {
-        printf("go right away - %d\n", _canMove);
         if (_canMove)
         {
             _positionX += STEP_X;

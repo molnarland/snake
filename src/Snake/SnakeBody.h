@@ -17,7 +17,7 @@ namespace Game
     class SnakeBody : public ColorRectSprite
     {
     public:
-        SnakeBody (signed short startPositionX, signed short startPositionY, timeMS delay);
+        SnakeBody (signed short startPositionX, signed short startPositionY);
 
         void goUp (Event*);
         void goRight (Event*);
@@ -50,8 +50,6 @@ namespace Game
         const double STEP_Y = HEIGHT;
 
         bool _canMove = true;
-
-        timeMS _delay;
 
         void go (const EventCallback &callback);
     };

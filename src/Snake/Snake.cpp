@@ -6,13 +6,7 @@ namespace Game
 {
     Snake::Snake ()
     {
-        spSnakeBody snakeBody = new SnakeBody(10, 10, DELAY);
-
-//        getStage()->addChild(snakeBody);
-        bodies.push_back(snakeBody);
-        bodies.push_back(new SnakeBody(9, 10, DELAY));
-        bodies.push_back(new SnakeBody(8, 10, DELAY));
-        bodies.push_back(new SnakeBody(7, 10, DELAY));
+        addBody(new SnakeBody(10, 10));
 
         core::getDispatcher()->addEventListener(core::EVENT_SYSTEM, CLOSURE(this, &Snake::pressArrow));
     }
@@ -68,9 +62,14 @@ namespace Game
                     break;
                 default:
                     break;
-
             }
         });
+    }
+
+    void Snake::addBody (spSnakeBody snakeBody)
+    {
+        getStage()->addChild(snakeBody);
+        bodies.push_back(snakeBody);
     }
 
     void Snake::throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from)
@@ -94,39 +93,31 @@ namespace Game
         }
     }
 
+    void Snake::move (unsigned long index, char direction)
+    {
+        bodies[index]->directon = currentMoveDirection = direction;
+
+        addWillMoveForAllBodies(direction, index);
+    }
+
     void Snake::moveUp (unsigned long bodyIndex)
     {
-        char direction = currentMoveDirection = Direction::UP;
-
-        bodies[bodyIndex]->directon = direction;
-
-        addWillMoveForAllBodies(direction, bodyIndex);
+        move(bodyIndex, Direction::UP);
     }
 
     void Snake::moveLeft (unsigned long bodyIndex)
     {
-        char direction = currentMoveDirection = Direction::LEFT;
-
-        bodies[bodyIndex]->directon = direction;
-
-        addWillMoveForAllBodies(direction, bodyIndex);
+        move(bodyIndex, Direction::LEFT);
     }
 
     void Snake::moveDown (unsigned long bodyIndex)
     {
-        char direction = currentMoveDirection = Direction::DOWN;
-
-        bodies[bodyIndex]->directon = direction;
-        addWillMoveForAllBodies(direction, bodyIndex);
+        move(bodyIndex, Direction::DOWN);
     }
 
     void Snake::moveRight (unsigned long bodyIndex)
     {
-        char direction = currentMoveDirection = Direction::RIGHT;
-
-        bodies[bodyIndex]->directon = direction;
-
-        addWillMoveForAllBodies(direction, bodyIndex);
+        move(bodyIndex, Direction::RIGHT);
     }
 
     bool Snake::canMoveUp ()
@@ -165,30 +156,30 @@ namespace Game
         switch (keycode)
         {
             case SDLK_w:
+            case SDLK_UP:
                 if (canMoveUp())
                 {
-                    bodies[0]->removeTweens();
                     moveUp();
                 }
                 break;
             case SDLK_a:
+            case SDLK_LEFT:
                 if (canMoveLeft())
                 {
-                    bodies[0]->removeTweens();
                     moveLeft();
                 }
                 break;
             case SDLK_s:
+            case SDLK_DOWN:
                 if (canMoveDown())
                 {
-                    bodies[0]->removeTweens();
                     moveDown();
                 }
                 break;
             case SDLK_d:
+            case SDLK_RIGHT:
                 if (canMoveRight())
                 {
-                    bodies[0]->removeTweens();
                     moveRight();
                 }
                 break;

@@ -2,14 +2,14 @@
 #include <core/oxygine.h>
 #include "Snake/Brain.h"
 
-Game::Snake* snake;
+Game::Snake* snakeBrain;
 bool firstMove = true;
 
 void example_preinit () {}
 
 void example_init ()
 {
-    snake = new Game::Snake();
+    snakeBrain = new Game::Snake();
 }
 
 void example_update()
@@ -17,11 +17,11 @@ void example_update()
     if (firstMove)
     {
         firstMove = false;
-        snake->start();
+        snakeBrain->start();
     }
     else
     {
-        snake->check();
+        snakeBrain->check();
     }
 
     oxygine::sleep(100);
