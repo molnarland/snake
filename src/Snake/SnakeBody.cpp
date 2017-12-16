@@ -3,12 +3,14 @@
 
 namespace Game
 {
-    SnakeBody::SnakeBody (GameObject::position_t startPosition)
+    SnakeBody::SnakeBody (GameObject::position_t startPosition, snake_body_size_t snakeBodySize)
     {
         _positionX = startPosition.x;
         _positionY = startPosition.y;
+        size = snakeBodySize;
+        stepSize = {size.width, size.height};
 
-        setSize(Constants::snakeBodySize.width, Constants::snakeBodySize.height);
+        setSize(size.width, size.height);
         setColor(0, 0, 0, 255);
         setPosition((float) _positionX, (float) _positionY);
         attachTo(getStage());
@@ -43,7 +45,7 @@ namespace Game
     {
         if (_canMove)
         {
-//            _positionY -= GameObject::StepSize.y;
+            _positionY -= stepSize.y;
             directon = GameObject::Direction::UP;
         }
         else
@@ -58,7 +60,7 @@ namespace Game
     {
         if (_canMove)
         {
-//            _positionX -= GameObject::StepSize.x;
+            _positionX -= stepSize.x;
             directon = GameObject::Direction::LEFT;
         }
         else
@@ -73,7 +75,7 @@ namespace Game
     {
         if (_canMove)
         {
-//            _positionY += GameObject::StepSize.y;
+            _positionY += stepSize.y;
             directon = GameObject::Direction::DOWN;
         }
         else
@@ -88,7 +90,7 @@ namespace Game
     {
         if (_canMove)
         {
-//            _positionX += GameObject::StepSize.x;
+            _positionX += stepSize.x;
             directon = GameObject::Direction::RIGHT;
         }
         else

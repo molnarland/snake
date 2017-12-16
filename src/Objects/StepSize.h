@@ -1,17 +1,13 @@
-/*
 #ifndef SNAKE_STEPSIZE_H
 #define SNAKE_STEPSIZE_H
 
-#include "../consts.h"
-
-namespace GameObject
-{
-    struct
+//namespace GameObject
+//{
+    struct step_size_t
     {
-        const double x = snakeBodySize.width;
-        const double y = snakeBodySize.height;
-    } StepSize;
-}
+        double x;
+        double y;
+    };
+//}
 
 #endif //SNAKE_STEPSIZE_H
-*/

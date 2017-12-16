@@ -7,7 +7,8 @@
 #include "../Objects/Direction.h"
 #include "../Objects/Position.h"
 #include "../Objects/WillMove.h"
-#include "../consts.h"
+#include "../Objects/Size.h"
+#include "../Objects/StepSize.h"
 //#include "../Objects/StepSize.h"
 
 using namespace oxygine;
@@ -17,7 +18,7 @@ namespace Game
     class SnakeBody : public ColorRectSprite
     {
     public:
-        SnakeBody (GameObject::position_t startPosition);
+        SnakeBody (GameObject::position_t startPosition, snake_body_size_t snakeBodySize);
 
         void goUp (Event*);
         void goRight (Event*);
@@ -44,6 +45,9 @@ namespace Game
         double _positionY;
 
         bool _canMove = true;
+
+        snake_body_size_t size;
+        step_size_t stepSize;
 
         void go (const EventCallback &callback);
     };
