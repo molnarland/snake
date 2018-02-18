@@ -16,19 +16,19 @@ namespace Snake
         attachTo(getStage());
     }
 
-    void SnakeBody::addWillMove (unsigned short steps, char direction)
+    void SnakeBody::addWillMove (unsigned long steps, char direction)
     {
-        willMoves.push_back({steps, direction});
+        this->willMoves.push_back({steps, direction});
     }
 
     std::deque<GameObject::will_move_t> SnakeBody::getWillMoves ()
     {
-        return willMoves;
+        return this->willMoves;
     }
 
     void SnakeBody::removeFirstMove ()
     {
-        willMoves.pop_front();
+        this->willMoves.pop_front();
     }
 
     bool SnakeBody::getCanMove ()

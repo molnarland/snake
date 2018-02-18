@@ -5,6 +5,8 @@
 #include <deque>
 #include <SDL_keycode.h>
 
+using namespace std;
+
 namespace Snake
 {
     DECLARE_SMART(SnakeBody, spSnakeBody);
@@ -16,7 +18,16 @@ namespace Snake
 //        ~SnakeNervousSystem () {};
 
         void check ();
+
         void start ();
+
+        void grow ();
+
+        size_t getBodyLength ();
+
+        spSnakeBody getOneBody (unsigned long index);
+
+        spSnakeBody getHead ();
 
     protected:
         void moveUp (unsigned long index = 0);
@@ -35,7 +46,9 @@ namespace Snake
         const timeMS DELAY = 100;
 
         void pressArrow (Event* ev);
+
         void throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from = 0);
+
         void addWillMoveForAllBodies (char direction, unsigned long bodyIndex);
 
         bool canMoveUp ();
@@ -43,7 +56,12 @@ namespace Snake
         bool canMoveDown ();
         bool canMoveRight ();
 
+        void goSomewhere (char direction, unsigned long bodyIndex);
+
         void move (unsigned long index, char direction);
+
+        void checkDirection (char direction, function <void ()> up, function <void ()> left,
+                             function <void ()> down, function <void ()> right);
     };
 }
 

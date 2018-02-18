@@ -1,14 +1,12 @@
 #ifndef SNAKE_WILLMOVE_H
 #define SNAKE_WILLMOVE_H
 
-#include "Direction.h"
-
 namespace GameObject
 {
     struct will_move_t
     {
-        unsigned short steps;
-        char directon;
+        unsigned long steps;
+        char direction;
     };
 };
 

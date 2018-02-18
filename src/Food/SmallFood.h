@@ -3,6 +3,7 @@
 
 #include <ColorRectSprite.h>
 #include "IFood.h"
+#include "../Objects/Size.h"
 
 using namespace oxygine;
 
@@ -11,7 +12,7 @@ namespace Food
     class SmallFood: public IFood, public ColorRectSprite
     {
     public:
-        SmallFood (position_t position);
+        SmallFood (position_t position, unit_size_t size);
 
         void make ();
         void eat ();

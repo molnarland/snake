@@ -10,8 +10,9 @@ namespace Food
     class IFood
     {
     public:
-        virtual void make () = 0;
+        virtual ~IFood (){};
 
+        virtual void make () = 0;
         virtual void eat () = 0;
 
         virtual unsigned int getPont ()
@@ -29,6 +30,9 @@ namespace Food
 
         double positionX;
         double positionY;
+
+        float width;
+        float height;
     };
 }
 #endif //SNAKE_IFOOD_H

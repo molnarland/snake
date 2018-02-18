@@ -30,7 +30,7 @@ namespace Snake
         void setCanMove (bool canMove);
         bool getCanMove ();
 
-        void addWillMove (unsigned short steps, char direction);
+        void addWillMove (unsigned long steps, char direction);
         std::deque<GameObject::will_move_t> getWillMoves ();
         void removeFirstMove ();
 
