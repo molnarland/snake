@@ -1,19 +1,24 @@
-#include "Snake.h"
+#include "SnakeNervousSystem.h"
 #include "oxygine-framework.h"
+#include "../Food/SmallFood.h"
 
-namespace Game
+namespace Snake
 {
-    Snake::Snake (snake_body_size_t snakeBodySize)
+    Food::SmallFood* food;
+
+    SnakeNervousSystem::SnakeNervousSystem (unit_size_t snakeBodySize)
     {
         bodySize = snakeBodySize;
 
         addBody(new SnakeBody({10 * snakeBodySize.width, 10 * snakeBodySize.height}, snakeBodySize));
         addBody(new SnakeBody({9 * snakeBodySize.width, 10 * snakeBodySize.height}, snakeBodySize));
 
-        core::getDispatcher()->addEventListener(core::EVENT_SYSTEM, CLOSURE(this, &Snake::pressArrow));
+        core::getDispatcher()->addEventListener(core::EVENT_SYSTEM, CLOSURE(this, &SnakeNervousSystem::pressArrow));
+
+        food = new Food::SmallFood({20 * snakeBodySize.width, 20 * snakeBodySize.height});
     }
 
-    void Snake::start ()
+    void SnakeNervousSystem::start ()
     {
         currentMoveDirection = GameObject::Direction::RIGHT;
 
@@ -24,7 +29,7 @@ namespace Game
         });
     }
 
-    void Snake::check ()
+    void SnakeNervousSystem::check ()
     {
         throughAllBody([this] (unsigned long index)
         {
@@ -66,15 +71,27 @@ namespace Game
                     break;
             }
         });
+
+
+        GameObject::position_t headPosition = bodies[0]->getPosition();
+        GameObject::position_t foodPosition = food->getCurrentPosition();
+
+
+        printf("%lf - %lf - %lf - %lf \n", headPosition.x, foodPosition.x, headPosition.y, foodPosition.y);
+
+        if ((int)headPosition.x == (int)foodPosition.x && (int)headPosition.y == (int)foodPosition.y)
+        {
+//            this->addBody()
+        }
     }
 
-    void Snake::addBody (spSnakeBody snakeBody)
+    void SnakeNervousSystem::addBody (spSnakeBody snakeBody)
     {
         getStage()->addChild(snakeBody);
         bodies.push_back(snakeBody);
     }
 
-    void Snake::throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from)
+    void SnakeNervousSystem::throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from)
     {
         unsigned long snakeLength = bodies.size();
 
@@ -84,7 +101,7 @@ namespace Game
         }
     }
 
-    void Snake::addWillMoveForAllBodies (char direction, unsigned long bodyIndex)
+    void SnakeNervousSystem::addWillMoveForAllBodies (char direction, unsigned long bodyIndex)
     {
         if (bodyIndex == 0)
         {
@@ -95,56 +112,56 @@ namespace Game
         }
     }
 
-    void Snake::move (unsigned long index, char direction)
+    void SnakeNervousSystem::move (unsigned long index, char direction)
     {
         bodies[index]->directon = currentMoveDirection = direction;
 
         addWillMoveForAllBodies(direction, index);
     }
 
-    void Snake::moveUp (unsigned long bodyIndex)
+    void SnakeNervousSystem::moveUp (unsigned long bodyIndex)
     {
         move(bodyIndex, GameObject::Direction::UP);
     }
 
-    void Snake::moveLeft (unsigned long bodyIndex)
+    void SnakeNervousSystem::moveLeft (unsigned long bodyIndex)
     {
         move(bodyIndex, GameObject::Direction::LEFT);
     }
 
-    void Snake::moveDown (unsigned long bodyIndex)
+    void SnakeNervousSystem::moveDown (unsigned long bodyIndex)
     {
         move(bodyIndex, GameObject::Direction::DOWN);
     }
 
-    void Snake::moveRight (unsigned long bodyIndex)
+    void SnakeNervousSystem::moveRight (unsigned long bodyIndex)
     {
         move(bodyIndex, GameObject::Direction::RIGHT);
     }
 
-    bool Snake::canMoveUp ()
+    bool SnakeNervousSystem::canMoveUp ()
     {
         return bodies[0]->getCanMove()
                && (currentMoveDirection == GameObject::Direction::RIGHT || currentMoveDirection == GameObject::Direction::LEFT);
     }
 
-    bool Snake::canMoveLeft ()
+    bool SnakeNervousSystem::canMoveLeft ()
     {
         return bodies[0]->getCanMove()
                && (currentMoveDirection == GameObject::Direction::UP || currentMoveDirection == GameObject::Direction::DOWN);
     }
 
-    bool Snake::canMoveDown ()
+    bool SnakeNervousSystem::canMoveDown ()
     {
         return canMoveUp();
     }
 
-    bool Snake::canMoveRight ()
+    bool SnakeNervousSystem::canMoveRight ()
     {
         return canMoveLeft();
     }
 
-    void Snake::pressArrow (Event* ev)
+    void SnakeNervousSystem::pressArrow (Event* ev)
     {
         SDL_Event* event = (SDL_Event*) ev->userData;
 

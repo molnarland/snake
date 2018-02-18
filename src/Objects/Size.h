@@ -3,7 +3,7 @@
 
 //namespace GameObject
 //{
-    struct snake_body_size_t
+    struct unit_size_t
     {
         float width;
         float height;

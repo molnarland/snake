@@ -5,15 +5,15 @@
 #include <deque>
 #include <SDL_keycode.h>
 
-namespace Game
+namespace Snake
 {
     DECLARE_SMART(SnakeBody, spSnakeBody);
 
-    class Snake
+    class SnakeNervousSystem
     {
     public:
-        Snake (snake_body_size_t snakeBodySize);
-//        ~Snake () {};
+        SnakeNervousSystem (unit_size_t snakeBodySize);
+//        ~SnakeNervousSystem () {};
 
         void check ();
         void start ();
@@ -26,7 +26,7 @@ namespace Game
 
         void addBody (spSnakeBody snakeBody);
 
-        snake_body_size_t bodySize;
+        unit_size_t bodySize;
 
     private:
         std::deque <spSnakeBody> bodies;
