@@ -1,9 +1,12 @@
 #include "Snake.h"
 #include "oxygine-framework.h"
+#include "../Food/SmallFood.h"
 
 namespace Game
 {
-    Snake::Snake (snake_body_size_t snakeBodySize)
+    Food::SmallFood* food;
+
+    Snake::Snake (unit_size_t snakeBodySize)
     {
         bodySize = snakeBodySize;
 
@@ -11,6 +14,8 @@ namespace Game
         addBody(new SnakeBody({9 * snakeBodySize.width, 10 * snakeBodySize.height}, snakeBodySize));
 
         core::getDispatcher()->addEventListener(core::EVENT_SYSTEM, CLOSURE(this, &Snake::pressArrow));
+
+        food = new Food::SmallFood({20 * snakeBodySize.width, 20 * snakeBodySize.height});
     }
 
     void Snake::start ()
@@ -66,6 +71,18 @@ namespace Game
                     break;
             }
         });
+
+
+        GameObject::position_t headPosition = bodies[0]->getPosition();
+        GameObject::position_t foodPosition = food->getCurrentPosition();
+
+
+        printf("%lf - %lf - %lf - %lf \n", headPosition.x, foodPosition.x, headPosition.y, foodPosition.y);
+
+        if ((int)headPosition.x == (int)foodPosition.x && (int)headPosition.y == (int)foodPosition.y)
+        {
+            this->addBody()
+        }
     }
 
     void Snake::addBody (spSnakeBody snakeBody)

@@ -18,7 +18,7 @@ namespace Game
     class SnakeBody : public ColorRectSprite
     {
     public:
-        SnakeBody (GameObject::position_t startPosition, snake_body_size_t snakeBodySize);
+        SnakeBody (GameObject::position_t startPosition, unit_size_t snakeBodySize);
 
         void goUp (Event*);
         void goRight (Event*);
@@ -46,7 +46,7 @@ namespace Game
 
         bool _canMove = true;
 
-        snake_body_size_t size;
+        unit_size_t size;
         step_size_t stepSize;
 
         void go (const EventCallback &callback);

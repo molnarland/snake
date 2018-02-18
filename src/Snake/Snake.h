@@ -12,7 +12,7 @@ namespace Game
     class Snake
     {
     public:
-        Snake (snake_body_size_t snakeBodySize);
+        Snake (unit_size_t snakeBodySize);
 //        ~Snake () {};
 
         void check ();
@@ -26,7 +26,7 @@ namespace Game
 
         void addBody (spSnakeBody snakeBody);
 
-        snake_body_size_t bodySize;
+        unit_size_t bodySize;
 
     private:
         std::deque <spSnakeBody> bodies;

@@ -2,7 +2,7 @@
 #include <core/oxygine.h>
 #include "Snake/Snake.h"
 
-Game::Snake* snakeBrain;
+Game::Snake* snake;
 bool firstMove = true;
 
 void example_preinit () {}
@@ -10,13 +10,13 @@ void example_preinit () {}
 void example_init ()
 {
     //TODO add snake body size as a constant
-    /*snake_body_size_t snakeBodySize = {
+    /*unit_size_t snakeBodySize = {
             .width = oxygine::getStage()->getWidth() / 50,
             .height = oxygine::getStage()->getHeight() /
                       (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()))
     };*/
 
-    snakeBrain = new Game::Snake(
+    snake = new Game::Snake(
             {oxygine::getStage()->getWidth() / 50,
              oxygine::getStage()->getHeight() / (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()))
             });
@@ -27,11 +27,11 @@ void example_update()
     if (firstMove)
     {
         firstMove = false;
-        snakeBrain->start();
+        snake->start();
     }
     else
     {
-        snakeBrain->check();
+        snake->check();
     }
 
     oxygine::sleep(100);
