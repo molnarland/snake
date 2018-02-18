@@ -1,7 +1,7 @@
 #include <core/oxygine.h>
 #include "SnakeBody.h"
 
-namespace Game
+namespace Snake
 {
     SnakeBody::SnakeBody (GameObject::position_t startPosition, unit_size_t snakeBodySize)
     {

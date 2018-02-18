@@ -13,7 +13,7 @@
 
 using namespace oxygine;
 
-namespace Game
+namespace Snake
 {
     class SnakeBody : public ColorRectSprite
     {

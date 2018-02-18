@@ -1,8 +1,8 @@
 /*v0.1*/
 #include <core/oxygine.h>
-#include "Snake/Snake.h"
+#include "Snake/SnakeNervousSystem.h"
 
-Game::Snake* snake;
+Snake::SnakeNervousSystem* snake;
 bool firstMove = true;
 
 void example_preinit () {}
@@ -16,7 +16,7 @@ void example_init ()
                       (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()))
     };*/
 
-    snake = new Game::Snake(
+    snake = new Snake::SnakeNervousSystem(
             {oxygine::getStage()->getWidth() / 50,
              oxygine::getStage()->getHeight() / (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()))
             });
