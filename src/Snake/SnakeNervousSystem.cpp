@@ -46,8 +46,6 @@ namespace Snake
 //                        printf("%d \n  ", bodies[index]->willMoves[moveIndex].steps);
                     }
 
-                    log::messageln("%d - %c", bodies[index]->willMoves[0].steps, bodies[index]->willMoves[0].direction);
-
 //                    if (index == bodies.size()-1)
 //                    {
 //                        printf("%d \n", bodies[index]->willMoves[0].steps);
@@ -82,6 +80,13 @@ namespace Snake
                     break;
             }*/
         });
+
+
+        if (bodies[bodies.size()-1]->willMoves.size() > 0)
+        {
+            log::messageln("%d - %c", bodies[bodies.size() - 1]->willMoves[0].steps,
+                    bodies[bodies.size() - 1]->willMoves[0].direction);
+        }
     }
 
     void SnakeNervousSystem::addBody (spSnakeBody snakeBody)
@@ -233,6 +238,7 @@ namespace Snake
 
     void SnakeNervousSystem::grow ()
     {
+        //TODO addWillMove and position set don't work correctly here if last part (not what growing) gonna move somewhere
         size_t bodyLength = this->getBodyLength();
         position_t lastBodyPosition = this->bodies.back()->getPosition();
         unit_size_t bodySize = this->bodySize;
