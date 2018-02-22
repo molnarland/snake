@@ -18,9 +18,7 @@ namespace Snake
 //        ~SnakeNervousSystem () {};
 
         void check ();
-
         void start ();
-
         void grow ();
 
         size_t getBodyLength ();
@@ -44,6 +42,7 @@ namespace Snake
         char currentMoveDirection;
 
         const timeMS DELAY = 100;
+        bool canMove = true;
 
         void pressArrow (Event* ev);
 

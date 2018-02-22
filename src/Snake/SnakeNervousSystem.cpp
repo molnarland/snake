@@ -4,6 +4,8 @@
 
 namespace Snake
 {
+
+
     SnakeNervousSystem::SnakeNervousSystem (unit_size_t snakeBodySize)
     {
         this->bodySize = snakeBodySize;
@@ -27,7 +29,9 @@ namespace Snake
 
     void SnakeNervousSystem::check ()
     {
-        throughAllBody([this] (unsigned long index)
+        this->canMove = true;
+
+        this->throughAllBody([this] (unsigned long index)
         {
             if (index > 0)
             {
@@ -38,9 +42,11 @@ namespace Snake
                 {
                     for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
                     {
-                        bodies[index]->willMoves[moveIndex].steps--;
+                        bodies[index]->willMoves[moveIndex].steps = bodies[index]->willMoves[moveIndex].steps - 1;
 //                        printf("%d \n  ", bodies[index]->willMoves[moveIndex].steps);
                     }
+
+                    log::messageln("%d - %c", bodies[index]->willMoves[0].steps, bodies[index]->willMoves[0].direction);
 
 //                    if (index == bodies.size()-1)
 //                    {
@@ -48,7 +54,7 @@ namespace Snake
 //                    }
 
 //                    printf("%lu \n", bodies[index]->willMoves[0].steps);
-                    if (bodies[index]->willMoves[0].steps == 0)
+                    if (bodies[index]->willMoves[0].steps <= 0)
                     {
                         bodies[index]->directon = bodies[index]->willMoves[0].direction;
                         bodies[index]->removeFirstMove();
@@ -107,6 +113,8 @@ namespace Snake
 
     void SnakeNervousSystem::move (unsigned long index, char direction)
     {
+        this->canMove = false;
+
         bodies[index]->directon = currentMoveDirection = direction;
 
         addWillMoveForAllBodies(direction, index);
@@ -158,6 +166,11 @@ namespace Snake
 
     void SnakeNervousSystem::pressArrow (Event* ev)
     {
+        if (!this->canMove)
+        {
+            return;
+        }
+
         SDL_Event* event = (SDL_Event*) ev->userData;
 
         if (event->type != SDL_KEYDOWN)
@@ -260,7 +273,7 @@ namespace Snake
         {
 //            printf("blaa %lu - %c - %d \n", beforeLastBodyWillMoves[index].steps, beforeLastBodyWillMoves[index].direction, beforeLastBodyWillMoves[index].direction);
 
-            printf("blaaa %lu - %lu \n", beforeLastBodyWillMovesLength, index);
+//            printf("blaaa %lu - %lu \n", beforeLastBodyWillMovesLength, index);
 
             body->addWillMove(index - 1, beforeLastBodyWillMoves[index].direction);
         }
