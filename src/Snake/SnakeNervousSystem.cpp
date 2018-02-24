@@ -84,8 +84,8 @@ namespace Snake
 
         if (bodies[bodies.size()-1]->willMoves.size() > 0)
         {
-            log::messageln("%d - %c", bodies[bodies.size() - 1]->willMoves[0].steps,
-                    bodies[bodies.size() - 1]->willMoves[0].direction);
+//            log::messageln("%d - %c", bodies[bodies.size() - 1]->willMoves[0].steps,
+//                    bodies[bodies.size() - 1]->willMoves[0].direction);
         }
     }
 
@@ -269,6 +269,8 @@ namespace Snake
                 }
         );
 
+        log::messageln("old: %d × %d - new: %d × %d", lastBodyPosition.x, lastBodyPosition.y, positionX, positionY);
+
         this->addBody(new SnakeBody({positionX, positionY}, this->bodySize));
 
         spSnakeBody body = this->bodies.back();
@@ -281,7 +283,17 @@ namespace Snake
 
 //            printf("blaaa %lu - %lu \n", beforeLastBodyWillMovesLength, index);
 
-            body->addWillMove(index - 1, beforeLastBodyWillMoves[index].direction);
+            unsigned long steps = (index > 1) ? index - 1 : index;
+            char direction = beforeLastBodyWillMoves[index].direction;
+
+            direction = (direction != Direction::RIGHT && direction != Direction::UP
+                         && direction != Direction::LEFT && direction != Direction::DOWN)
+                        ? this->currentMoveDirection
+                        : direction;
+
+//            log::messageln("%d - %c :index %d", steps, direction, index);
+
+            body->addWillMove(steps, direction);
         }
 
         //Direction check twice but this way better looking
