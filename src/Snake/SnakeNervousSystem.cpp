@@ -269,7 +269,7 @@ namespace Snake
                 }
         );
 
-        log::messageln("old: %d × %d - new: %d × %d", lastBodyPosition.x, lastBodyPosition.y, positionX, positionY);
+//        log::messageln("old: %d × %d - new: %d × %d", lastBodyPosition.x, lastBodyPosition.y, positionX, positionY);
 
         this->addBody(new SnakeBody({positionX, positionY}, this->bodySize));
 
