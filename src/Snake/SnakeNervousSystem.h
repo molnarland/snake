@@ -22,9 +22,7 @@ namespace Snake
         void grow ();
 
         size_t getBodyLength ();
-
         spSnakeBody getOneBody (unsigned long index);
-
         spSnakeBody getHead ();
 
     protected:

@@ -3,7 +3,7 @@
 
 namespace Snake
 {
-    SnakeBody::SnakeBody (GameObject::position_t startPosition, unit_size_t snakeBodySize)
+    SnakeBody::SnakeBody (position_t startPosition, unit_size_t snakeBodySize)
     {
         _positionX = startPosition.x;
         _positionY = startPosition.y;
@@ -21,7 +21,7 @@ namespace Snake
         this->willMoves.push_back({steps, direction});
     }
 
-    std::deque<GameObject::will_move_t> SnakeBody::getWillMoves ()
+    std::deque<will_move_t> SnakeBody::getWillMoves ()
     {
         return this->willMoves;
     }
@@ -46,7 +46,7 @@ namespace Snake
         if (_canMove)
         {
             _positionY -= stepSize.y;
-            directon = GameObject::Direction::UP;
+            directon = Direction::UP;
         }
         else
         {
@@ -61,7 +61,7 @@ namespace Snake
         if (_canMove)
         {
             _positionX -= stepSize.x;
-            directon = GameObject::Direction::LEFT;
+            directon = Direction::LEFT;
         }
         else
         {
@@ -76,7 +76,7 @@ namespace Snake
         if (_canMove)
         {
             _positionY += stepSize.y;
-            directon = GameObject::Direction::DOWN;
+            directon = Direction::DOWN;
         }
         else
         {
@@ -91,7 +91,7 @@ namespace Snake
         if (_canMove)
         {
             _positionX += stepSize.x;
-            directon = GameObject::Direction::RIGHT;
+            directon = Direction::RIGHT;
         }
         else
         {
@@ -106,7 +106,7 @@ namespace Snake
         addTween(ColorRectSprite::TweenPosition((int) _positionX, (int) _positionY), 1);
     }
 
-    GameObject::position_t SnakeBody::getPosition ()
+    position_t SnakeBody::getPosition ()
     {
         return {_positionX, _positionY};
     }

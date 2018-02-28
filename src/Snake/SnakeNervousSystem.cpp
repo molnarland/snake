@@ -18,7 +18,7 @@ namespace Snake
 
     void SnakeNervousSystem::start ()
     {
-        this->currentMoveDirection = GameObject::Direction::RIGHT;
+        this->currentMoveDirection = Direction::RIGHT;
 
         throughAllBody([this] (unsigned long index)
         {
@@ -35,7 +35,7 @@ namespace Snake
         {
             if (index > 0)
             {
-                std::deque <GameObject::will_move_t> willMove = bodies[index]->getWillMoves();
+                std::deque <will_move_t> willMove = bodies[index]->getWillMoves();
                 unsigned long willMoveLength = bodies[index]->willMoves.size();
 
                 if (willMoveLength > 0)
@@ -64,16 +64,16 @@ namespace Snake
 
             /*switch (bodies[index]->direction)
             {
-                case GameObject::Direction::UP:
+                case Direction::UP:
                     bodies[index]->goUp(nullptr);
                     break;
-                case GameObject::Direction::LEFT:
+                case Direction::LEFT:
                     bodies[index]->goLeft(nullptr);
                     break;
-                case GameObject::Direction::DOWN:
+                case Direction::DOWN:
                     bodies[index]->goDown(nullptr);
                     break;
-                case GameObject::Direction::RIGHT:
+                case Direction::RIGHT:
                     bodies[index]->goRight(nullptr);
                     break;
                 default:
@@ -127,36 +127,36 @@ namespace Snake
 
     void SnakeNervousSystem::moveUp (unsigned long bodyIndex)
     {
-        move(bodyIndex, GameObject::Direction::UP);
+        move(bodyIndex, Direction::UP);
     }
 
     void SnakeNervousSystem::moveLeft (unsigned long bodyIndex)
     {
-        move(bodyIndex, GameObject::Direction::LEFT);
+        move(bodyIndex, Direction::LEFT);
     }
 
     void SnakeNervousSystem::moveDown (unsigned long bodyIndex)
     {
-        move(bodyIndex, GameObject::Direction::DOWN);
+        move(bodyIndex, Direction::DOWN);
     }
 
     void SnakeNervousSystem::moveRight (unsigned long bodyIndex)
     {
-        move(bodyIndex, GameObject::Direction::RIGHT);
+        move(bodyIndex, Direction::RIGHT);
     }
 
     bool SnakeNervousSystem::canMoveUp ()
     {
         return bodies[0]->getCanMove()
-               && (currentMoveDirection == GameObject::Direction::RIGHT ||
-                   currentMoveDirection == GameObject::Direction::LEFT);
+               && (currentMoveDirection == Direction::RIGHT ||
+                   currentMoveDirection == Direction::LEFT);
     }
 
     bool SnakeNervousSystem::canMoveLeft ()
     {
         return bodies[0]->getCanMove()
-               && (currentMoveDirection == GameObject::Direction::UP ||
-                   currentMoveDirection == GameObject::Direction::DOWN);
+               && (currentMoveDirection == Direction::UP ||
+                   currentMoveDirection == Direction::DOWN);
     }
 
     bool SnakeNervousSystem::canMoveDown ()
@@ -274,7 +274,7 @@ namespace Snake
         this->addBody(new SnakeBody({positionX, positionY}, this->bodySize));
 
         spSnakeBody body = this->bodies.back();
-        std::deque<GameObject::will_move_t> beforeLastBodyWillMoves = this->getOneBody(this->getBodyLength() - 2)->getWillMoves();
+        std::deque<will_move_t> beforeLastBodyWillMoves = this->getOneBody(this->getBodyLength() - 2)->getWillMoves();
         size_t beforeLastBodyWillMovesLength = beforeLastBodyWillMoves.size();
 
         for (unsigned long index = 1; index <= beforeLastBodyWillMovesLength; index++)
@@ -305,16 +305,16 @@ namespace Snake
     {
         switch (direction)
         {
-            case GameObject::Direction::UP:
+            case Direction::UP:
                 up();
                 break;
-            case GameObject::Direction::LEFT:
+            case Direction::LEFT:
                 left();
                 break;
-            case GameObject::Direction::DOWN:
+            case Direction::DOWN:
                 down();
                 break;
-            case GameObject::Direction::RIGHT:
+            case Direction::RIGHT:
                 right();
                 break;
             default:
