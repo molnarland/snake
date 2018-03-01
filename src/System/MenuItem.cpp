@@ -32,22 +32,23 @@ namespace System
     {
         this->makeButton();
         this->makeTextField();
+
+        this->textField->attachTo(this);
     }
 
     void MenuItem::makeButton ()
     {
-        new Button::ButtonBlackMaker(this);
+        new Button::ButtonBlackMaker(*this);
     }
 
     void MenuItem::makeTextField ()
     {
-        spTextField text = new TextField();
-        text->setPosition(400, 400);
-        text->setSize(100, 100);
-        text->setStyle(TextStyle(this->resources->getResFont("main")).withColor(Color::White).alignMiddle());
-        text->setText("Start");
-
-        text->addEventListener(TouchEvent::CLICK, CLOSURE(this, &Menu::click));
+        this->textField = new TextField();
+        this->textField->setPosition(400, 400);
+        this->textField->setSize(100, 100);
+        this->textField->setStyle(TextStyle(this->resources->getResFont("main"))/*.withColor(Color::White)*/.alignMiddle());
+        this->textField->setText(this->label);
+//        text->addEventListener(TouchEvent::CLICK, CLOSURE(this, &Menu::click));
     }
 }
 

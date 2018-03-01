@@ -9,13 +9,13 @@ namespace System::Button
     class AbstractButtonMaker
     {
     public:
-        explicit AbstractButtonMaker (MenuItem* menuItem) : menuItem(menuItem)
+        explicit AbstractButtonMaker (MenuItem& menuItem) : menuItem(menuItem)
         {};
 
-        virtual MenuItem* make () = 0;
+        virtual void make () = 0;
 
     private:
-        MenuItem* menuItem;
+        MenuItem& menuItem;
     };
 }
 

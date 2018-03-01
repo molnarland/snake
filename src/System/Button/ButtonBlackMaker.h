@@ -10,9 +10,12 @@ namespace System::Button
     class ButtonBlackMaker: public AbstractButtonMaker
     {
     public:
-        explicit ButtonBlackMaker(MenuItem* menuItem);
+        explicit ButtonBlackMaker(MenuItem& menuItem);
 
-        MenuItem* make ();
+        void make ();
+
+    private:
+        MenuItem* menuItem;
     };
 }
 

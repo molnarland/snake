@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "Game.h"
+#include "MenuItem.h"
 
 Resources gameResources;
 
@@ -9,8 +10,7 @@ namespace System
     {
         gameResources.loadXML("res.xml");
 
-        const spStage& stage = getStage();
-        const Vector2 stageSize = stage->getSize();
+        getStage()->addChild(new MenuItem("Start", &gameResources));
     }
 
     void Menu::click (Event* event)

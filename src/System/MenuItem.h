@@ -7,7 +7,7 @@ using namespace oxygine;
 
 namespace System
 {
-    class MenuItem : public Actor
+    class MenuItem : public Sprite
     {
     public:
         explicit MenuItem(std::string label);
