@@ -8,7 +8,7 @@ using namespace oxygine;
 
 namespace System
 {
-    class Menu
+    class Menu: public Actor
     {
     public:
         Menu ();
