@@ -2,25 +2,32 @@
 #define SNAKE_MENUITEM_H
 
 #include "oxygine-framework.h"
+#include "Button/AbstractButton.h"
+#include "../Objects/ButtonTypes.h"
+#include "../Objects/TextTypes.h"
+#include "Text/AbstractText.h"
 
 using namespace oxygine;
+using namespace std;
+using namespace GameObject;
 
 namespace System
 {
-    class MenuItem : public Sprite
+    class MenuItem
     {
     public:
-        explicit MenuItem(std::string label);
-        MenuItem(std::string label, Resources *resources);
+        explicit MenuItem(string label);
 
-        void make();
+        void make(ButtonTypes buttonType, TextTypes textType);
+        Button::AbstractButton* get ();
     private:
-        Resources* resources;
-        std::string label;
-        spTextField textField;
+        string label;
+        Text::AbstractText* textField;
+        Button::AbstractButton* button;
+//        Resources resources;
 
-        void makeButton ();
-        void makeTextField ();
+        void makeButton (ButtonTypes type);
+        void makeTextField (TextTypes type);
     };
 }
 

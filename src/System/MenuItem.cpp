@@ -1,54 +1,69 @@
 #include "MenuItem.h"
-#include "Menu.h"
-#include "Button/ButtonBlackMaker.h"
+
+#include "Button/ButtonBlack.h"
+#include "Text/TextMainButton.h"
 
 namespace System
 {
-    MenuItem::MenuItem (std::string label)
+    MenuItem::MenuItem (string label) : label(move(label))
     {
-        this->label = label;
 
-        Resources resources;
-        bool success = resources.loadXML("res.xml");
+    }
 
-        if (success)
+    void MenuItem::make (ButtonTypes buttonType, TextTypes textType)
+    {
+        this->makeButton(buttonType);
+        this->makeTextField(textType);
+    }
+
+    void MenuItem::makeButton (ButtonTypes type)
+    {
+        switch (type)
         {
-            this->resources = &resources;
+            case ButtonBlack:
+                this->button = new Button::ButtonBlack;
+                break;
+            default:
+                throw "Invalid button type";
         }
 
-        this->make();
+        this->button->make();
     }
 
-
-    MenuItem::MenuItem (std::string label, Resources* resources)
+    void MenuItem::makeTextField (TextTypes type)
     {
-        this->label = label;
-        this->resources = resources;
+        /*Resources resources;
+        if (resources.loadXML("res.xml"))
+        {
+            log::messageln("reeeeeeeeeeeeeeeeeeeees");
 
-        this->make();
+            ResFont* font = resources.getResFont("main");
+            TextStyle style = TextStyle(font).alignMiddle();
+
+            this->textField->setPosition(0, 0);
+            this->textField->setSize(100, 100);
+//            this->textField->setStyle(style);
+            this->textField->setText(this->label);
+        }*/
+
+        switch (type)
+        {
+            case TextMainButton:
+                this->textField = new Text::TextMainButton(this->label, "res.xml");
+                break;
+            default:
+                throw  "invalid text type";
+        }
+
+        this->textField->make();
     }
 
-    void MenuItem::make ()
+    Button::AbstractButton* MenuItem::get ()
     {
-        this->makeButton();
-        this->makeTextField();
+        this->button->addChild(this->textField);
 
-        this->textField->attachTo(this);
-    }
-
-    void MenuItem::makeButton ()
-    {
-        new Button::ButtonBlackMaker(*this);
-    }
-
-    void MenuItem::makeTextField ()
-    {
-        this->textField = new TextField();
-        this->textField->setPosition(400, 400);
-        this->textField->setSize(100, 100);
-        this->textField->setStyle(TextStyle(this->resources->getResFont("main"))/*.withColor(Color::White)*/.alignMiddle());
-        this->textField->setText(this->label);
-//        text->addEventListener(TouchEvent::CLICK, CLOSURE(this, &Menu::click));
+        return this->button;
     }
 }
+
 

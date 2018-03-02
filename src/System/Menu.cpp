@@ -2,15 +2,13 @@
 #include "Game.h"
 #include "MenuItem.h"
 
-Resources gameResources;
-
 namespace System
 {
     Menu::Menu ()
     {
-        gameResources.loadXML("res.xml");
-
-        getStage()->addChild(new MenuItem("Start", &gameResources));
+        MenuItem* menuItem = new MenuItem("Start");
+        menuItem->make(ButtonBlack, TextMainButton);
+        getStage()->addChild(menuItem->get());
     }
 
     void Menu::click (Event* event)
@@ -20,6 +18,5 @@ namespace System
 
     Menu::~Menu ()
     {
-        gameResources.free();
     }
 }

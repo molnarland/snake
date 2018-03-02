@@ -3,19 +3,18 @@
 
 
 #include "../MenuItem.h"
+#include "oxygine-framework.h"
+
+
+
+using namespace oxygine;
 
 namespace System::Button
 {
-    class AbstractButtonMaker
+    class AbstractButton: public ColorRectSprite
     {
     public:
-        explicit AbstractButtonMaker (MenuItem& menuItem) : menuItem(menuItem)
-        {};
-
         virtual void make () = 0;
-
-    private:
-        MenuItem& menuItem;
     };
 }
 
