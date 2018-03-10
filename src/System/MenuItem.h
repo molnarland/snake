@@ -17,7 +17,7 @@ namespace System
     class MenuItem
     {
     public:
-        explicit MenuItem(const string& label, unit_size_t size, position_t position);
+        explicit MenuItem(const string& label, const unit_size_t& size, const position_t& position, const EventCallback& callback);
 
         void make(const ButtonTypes& buttonType, const TextTypes& textType);
         unit_size_t getSize();
@@ -25,9 +25,10 @@ namespace System
 
         Button::AbstractButton* get () const;
     private:
-        string label;
-        unit_size_t size;
-        position_t position;
+        const string label;
+        const unit_size_t size;
+        const position_t position;
+        const EventCallback callback;
         Text::AbstractText* textField;
         Button::AbstractButton* button;
 //        Resources resources;

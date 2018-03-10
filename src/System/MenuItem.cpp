@@ -5,11 +5,9 @@
 
 namespace System
 {
-    MenuItem::MenuItem (const string& label, unit_size_t size, position_t position)
-            : label(label), size(size), position(position)
-    {
-
-    }
+    MenuItem::MenuItem (const string& label, const unit_size_t& size, const position_t& position, const EventCallback& callback)
+            : label(label), size(size), position(position), callback(callback)
+    {}
 
     void MenuItem::make (const ButtonTypes& buttonType, const TextTypes& textType)
     {
@@ -22,7 +20,7 @@ namespace System
         switch (type)
         {
             case ButtonBlack:
-                this->button = new Button::ButtonBlack(this->size, this->position);
+                this->button = new Button::ButtonBlack(this->size, this->position, this->callback);
                 break;
             default:
                 throw "Invalid button type";

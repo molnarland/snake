@@ -10,7 +10,7 @@ namespace System::Button
     class ButtonBlack: public AbstractButton
     {
     public:
-        ButtonBlack (const unit_size_t& size, const position_t& position);
+        ButtonBlack (const unit_size_t& size, const position_t& position, const EventCallback& callback);
 
         virtual void make ();
     };

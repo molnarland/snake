@@ -32,13 +32,13 @@ namespace System
 
     void Menu::addMenuItems ()
     {
-        this->addMenuItem(ButtonBlack, TextMainButton);
-        this->addMenuItem(ButtonBlack, TextMainButton);
+        this->addMenuItem(ButtonBlack, TextMainButton, [](Event*) { log::messageln("blaah"); });
+        this->addMenuItem(ButtonBlack, TextMainButton, [](Event*) { log::messageln("jeeeh"); });
     }
 
-    void Menu::addMenuItem (const ButtonTypes& buttonType, const TextTypes& textType)
+    void Menu::addMenuItem (const ButtonTypes& buttonType, const TextTypes& textType, const EventCallback& callback)
     {
-        MenuItem* menuItem = new MenuItem("Start", this->getNextItemSize(), this->getNextItemPosition());
+        MenuItem* menuItem = new MenuItem("Start", this->getNextItemSize(), this->getNextItemPosition(), callback);
         menuItem->make(buttonType, textType);
         this->addChild(menuItem->get());
 

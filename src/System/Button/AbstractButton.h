@@ -7,8 +7,8 @@
 #include "../../Objects/Position.h"
 #include "../../Objects/Size.h"
 
-
 using namespace oxygine;
+using namespace std;
 using namespace GameObject;
 
 namespace System::Button
@@ -16,13 +16,18 @@ namespace System::Button
     class AbstractButton : public ColorRectSprite
     {
     public:
-        AbstractButton (unit_size_t size, position_t position) : size(size), position(position) {};
+        AbstractButton (const unit_size_t& size, const position_t& position, const EventCallback& callback)
+                : size(size),
+                  position(position),
+                  callback(callback)
+        {};
 
         virtual void make () = 0;
 
     protected:
-        unit_size_t size;
-        position_t position;
+        const unit_size_t size;
+        const position_t position;
+        const EventCallback callback;
     };
 }
 

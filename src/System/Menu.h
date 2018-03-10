@@ -25,7 +25,7 @@ namespace System
         float menuPaddingLeftAndRight;
 
         void addMenuItems();
-        void addMenuItem(const ButtonTypes& buttonType, const TextTypes& textType);
+        void addMenuItem(const ButtonTypes& buttonType, const TextTypes& textType, const EventCallback& callback);
         position_t getNextItemPosition();
         unit_size_t getNextItemSize();
     };
