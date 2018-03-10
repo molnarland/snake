@@ -11,7 +11,7 @@ namespace System::Text
     class AbstractText : public TextField
     {
     public:
-        AbstractText (string text, string resourceXmlName) : text(move(text)),
+        AbstractText (const string& text, const string& resourceXmlName) : text(move(text)),
                                                              resourceXmlName(move(resourceXmlName))
         {};
 

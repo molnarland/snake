@@ -16,18 +16,18 @@ namespace System
     class MenuItem
     {
     public:
-        explicit MenuItem(string label);
+        explicit MenuItem(const string& label);
 
-        void make(ButtonTypes buttonType, TextTypes textType);
-        Button::AbstractButton* get ();
+        void make(const ButtonTypes& buttonType, const TextTypes& textType);
+        Button::AbstractButton* get () const;
     private:
         string label;
         Text::AbstractText* textField;
         Button::AbstractButton* button;
 //        Resources resources;
 
-        void makeButton (ButtonTypes type);
-        void makeTextField (TextTypes type);
+        void makeButton (const ButtonTypes& type);
+        void makeTextField (const TextTypes& type);
     };
 }
 

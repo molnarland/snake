@@ -8,7 +8,7 @@ namespace System::Text
     class TextMainButton: public AbstractText
     {
     public:
-        TextMainButton (string text, string resourceXmlName);
+        TextMainButton (const string& text, const string& resourceXmlName);
 
         virtual void make();
     };

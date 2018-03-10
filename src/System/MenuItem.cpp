@@ -5,18 +5,18 @@
 
 namespace System
 {
-    MenuItem::MenuItem (string label) : label(move(label))
+    MenuItem::MenuItem (const string& label) : label(label)
     {
 
     }
 
-    void MenuItem::make (ButtonTypes buttonType, TextTypes textType)
+    void MenuItem::make (const ButtonTypes& buttonType, const TextTypes& textType)
     {
         this->makeButton(buttonType);
-        this->makeTextField(textType);
+        /*this->makeTextField(textType);*/
     }
 
-    void MenuItem::makeButton (ButtonTypes type)
+    void MenuItem::makeButton (const ButtonTypes& type)
     {
         switch (type)
         {
@@ -30,26 +30,12 @@ namespace System
         this->button->make();
     }
 
-    void MenuItem::makeTextField (TextTypes type)
+    void MenuItem::makeTextField (const TextTypes& type)
     {
-        /*Resources resources;
-        if (resources.loadXML("res.xml"))
-        {
-            log::messageln("reeeeeeeeeeeeeeeeeeeees");
-
-            ResFont* font = resources.getResFont("main");
-            TextStyle style = TextStyle(font).alignMiddle();
-
-            this->textField->setPosition(0, 0);
-            this->textField->setSize(100, 100);
-//            this->textField->setStyle(style);
-            this->textField->setText(this->label);
-        }*/
-
         switch (type)
         {
             case TextMainButton:
-                this->textField = new Text::TextMainButton(this->label, "res.xml");
+                this->textField = new Text::TextMainButton(this->label, "../data/res.xml");
                 break;
             default:
                 throw  "invalid text type";
@@ -58,9 +44,9 @@ namespace System
         this->textField->make();
     }
 
-    Button::AbstractButton* MenuItem::get ()
+    Button::AbstractButton* MenuItem::get () const
     {
-        this->button->addChild(this->textField);
+        /*this->button->addChild(this->textField);*/
 
         return this->button;
     }

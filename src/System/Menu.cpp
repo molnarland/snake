@@ -6,6 +6,7 @@ namespace System
 {
     Menu::Menu ()
     {
+
         MenuItem* menuItem = new MenuItem("Start");
         menuItem->make(ButtonBlack, TextMainButton);
         getStage()->addChild(menuItem->get());

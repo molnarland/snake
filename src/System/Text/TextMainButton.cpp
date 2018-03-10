@@ -2,30 +2,22 @@
 
 namespace System::Text
 {
-    TextMainButton::TextMainButton (string text, string resourceXmlName)
+    TextMainButton::TextMainButton (const string& text, const string& resourceXmlName)
             : AbstractText(text, resourceXmlName)
     {}
 
     void TextMainButton::make ()
     {
         Resources resources;
-        //TODO got segmentation fault 
-        bool loaded = resources.loadXML(this->resourceXmlName);
+        resources.loadXML(this->resourceXmlName);
 
-        log::messageln("%d", loaded);
+        ResFont* font = resources.getResFont("normal");
+        TextStyle style = TextStyle(font).alignMiddle();
 
-        if (loaded)
-        {
-
-            ResFont* font = resources.getResFont("main");
-            TextStyle style = TextStyle(font).alignMiddle();
-
-
-            this->setPosition(0, 0);
-            this->setSize(100, 100);
-            this->setStyle(style);
-            this->setText(this->text);
-        }
+        this->setPosition(0, 0);
+        this->setSize(100, 100);
+        this->setStyle(style);
+        this->setText(this->text);
 
         resources.free();
     }
