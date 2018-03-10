@@ -5,7 +5,8 @@
 
 namespace System
 {
-    MenuItem::MenuItem (const string& label) : label(label)
+    MenuItem::MenuItem (const string& label, unit_size_t size, position_t position)
+            : label(label), size(size), position(position)
     {
 
     }
@@ -21,7 +22,7 @@ namespace System
         switch (type)
         {
             case ButtonBlack:
-                this->button = new Button::ButtonBlack;
+                this->button = new Button::ButtonBlack(this->size, this->position);
                 break;
             default:
                 throw "Invalid button type";
@@ -49,6 +50,16 @@ namespace System
         /*this->button->addChild(this->textField);*/
 
         return this->button;
+    }
+
+    unit_size_t MenuItem::getSize ()
+    {
+        return this->size;
+    }
+
+    position_t MenuItem::getPosition ()
+    {
+        return this->position;
     }
 }
 
