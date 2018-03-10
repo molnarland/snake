@@ -1,7 +1,4 @@
 #include "Menu.h"
-#include "Game.h"
-#include "MenuItem.h"
-#include "../Global/Percentage.h"
 
 using namespace Global;
 
@@ -29,10 +26,19 @@ namespace System
     {
     }
 
+    Game* Menu::start (Event*)
+    {
+        this->game = new Game;
+        this->game->start();
+
+        this->detach();
+
+        return this->game;
+    }
 
     void Menu::addMenuItems ()
     {
-        this->addMenuItem(ButtonBlack, TextMainButton, [](Event*) { log::messageln("blaah"); });
+        this->addMenuItem(ButtonBlack, TextMainButton, CLOSURE(this, &Menu::start));
         this->addMenuItem(ButtonBlack, TextMainButton, [](Event*) { log::messageln("jeeeh"); });
     }
 
@@ -68,5 +74,4 @@ namespace System
                 Percentage::calculate(this->getSize().y, this->itemsHeight)
         };
     }
-
 }

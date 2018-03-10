@@ -5,6 +5,7 @@
 #include "../Objects/Size.h"
 #include "MenuItem.h"
 #include "../Global/Percentage.h"
+#include "Game.h"
 
 using namespace oxygine;
 using namespace std;
@@ -18,6 +19,8 @@ namespace System
         Menu ();
         ~Menu ();
 
+        Game* start (Event*);
+
     private:
         deque<MenuItem*> menuItems;
         float itemsMarginTop;
@@ -28,6 +31,9 @@ namespace System
         void addMenuItem(const ButtonTypes& buttonType, const TextTypes& textType, const EventCallback& callback);
         position_t getNextItemPosition();
         unit_size_t getNextItemSize();
+
+        Game* game;
+
     };
 }
 

@@ -1,14 +1,16 @@
 /*v0.1*/
-#include <core/oxygine.h>
 #include "System/Game.h"
 #include "System/Menu.h"
 
-//System::Game* game;
+using namespace System;
+
+Game* game;
 bool firstMove = true;
+Menu* menu;
 
-void example_preinit () {}
+void preinit () {}
 
-void example_init ()
+void init ()
 {
     //TODO add snake body size as a constant
     /*unit_size_t snakeBodySize = {
@@ -17,13 +19,10 @@ void example_init ()
                       (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()))
     };*/
 
-    System::Menu* menu = new System::Menu();
-
-
-//    game = new System::Game();
+    menu = new Menu();
 }
 
-void example_update()
+void update ()
 {
 //    if (firstMove)
 //    {
@@ -38,4 +37,4 @@ void example_update()
 //    oxygine::sleep(100);
 }
 
-void example_destroy() {}
+void destroy () {}

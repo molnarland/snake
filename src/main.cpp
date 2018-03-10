@@ -22,7 +22,7 @@ int mainloop()
     bool done = core::update();
 
     // It gets passed to our example game implementation
-    example_update();
+    update();
 
     // Update our stage
     // Update all actors. Actor::update will also be called for all its children
@@ -58,7 +58,7 @@ void run()
 #endif
 
 
-    example_preinit();
+    preinit();
     core::init(&desc);
 
 
@@ -71,7 +71,7 @@ void run()
     DebugActor::show();
 
     // Initializes our example game. See example.cpp
-    example_init();
+    init();
 
 #ifdef EMSCRIPTEN
     /*
@@ -109,7 +109,7 @@ void run()
     */
 
     // See example.cpp for the shutdown function implementation
-    example_destroy();
+    destroy();
 
 
     //renderer.cleanup();
