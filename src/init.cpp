@@ -1,56 +1,32 @@
 /*v0.1*/
+#include "System/Game.h"
+#include "System/Menu.h"
 
-#include <iostream>
-#include <core/oxygine.h>
-#include "Snake/Brain.h"
+using namespace System;
 
-Game::Snake* snake;
+Game* game;
 bool firstMove = true;
+Menu* menu;
 
-void example_preinit () {}
+void preinit () {}
 
-/*void bla (oxygine::ColorRectSprite *sprite, int where)
+void init ()
 {
-    sprite->addTween(
-            oxygine::ColorRectSprite::TweenPosition(where, 100),
-            oxygine::TweenOptions(1).delay(100).doneCallback([=](oxygine::Event*) { bla(sprite, where + 100); })
-    );
-}*/
+    //TODO add snake body size as a constant
+    /*unit_size_t snakeBodySize = {
+            .width = oxygine::getStage()->getWidth() / 50,
+            .height = oxygine::getStage()->getHeight() /
+                      (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()))
+    };*/
 
 
-void example_init ()
-{
-//    getStage()->setSize(640, 640);
-
-//    oxygine::ColorRectSprite *sprite = new oxygine::ColorRectSprite;
-//    sprite->setSize(100, 100);
-//    sprite->setColor(0, 0, 0, 255);
-//    sprite->setPosition(100, 100);
-//    sprite->attachTo(oxygine::getStage());
-
-    snake = new Game::Snake();
-//    update(snake);
+    game = new Game();
+    menu = new Menu(game);
 }
 
-void example_update()
+void update ()
 {
-    if (firstMove)
-    {
-//    canGo = false;
-//    canGo = true;
-        firstMove = false;
-        snake->start();
-    }
-    else
-    {
-        snake->check();
-    }
-
-    printf("%d update \n", getTimeMS());
-
-    oxygine::sleep(100);
-
-//    snake->check();
+    game->check();
 }
 
-void example_destroy() {}
+void destroy () {}

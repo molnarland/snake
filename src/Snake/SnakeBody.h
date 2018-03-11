@@ -7,37 +7,35 @@
 #include "../Objects/Direction.h"
 #include "../Objects/Position.h"
 #include "../Objects/WillMove.h"
-
+#include "../Objects/Size.h"
+#include "../Objects/StepSize.h"
+#include "../Objects/StepSize.h"
 
 using namespace oxygine;
 using namespace GameObject;
 
-namespace Game
+namespace Snake
 {
     class SnakeBody : public ColorRectSprite
     {
     public:
-//        time_t startTime;
-
-        SnakeBody (signed short startPositionX, signed short startPositionY, timeMS delay);
+        SnakeBody (position_t startPosition, unit_size_t snakeBodySize);
 
         void goUp (Event*);
         void goRight (Event*);
         void goDown (Event*);
         void goLeft (Event*);
 
-        void setDirection (Direction direction);
-
         void setCanMove (bool canMove);
         bool getCanMove ();
 
-        void addWillMove (unsigned short steps, char direction);
+        void addWillMove (unsigned long steps, char direction);
         std::deque<will_move_t> getWillMoves ();
         void removeFirstMove ();
 
         std::deque<will_move_t> willMoves;
 
-        char directon;
+        char direction;
 
         position_t getPosition ();
 
@@ -45,15 +43,10 @@ namespace Game
         double _positionX;
         double _positionY;
 
-        const double WIDTH = getStage()->getWidth() / 50;
-        const double HEIGHT = getStage()->getHeight() / (50 / (getStage()->getWidth() / getStage()->getHeight()));
-
-        const double STEP_X = WIDTH;
-        const double STEP_Y = HEIGHT;
-
         bool _canMove = true;
 
-        timeMS _delay;
+        unit_size_t size;
+        step_size_t stepSize;
 
         void go (const EventCallback &callback);
     };
