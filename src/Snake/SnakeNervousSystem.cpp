@@ -134,7 +134,7 @@ namespace Snake
     {
         return this->bodies[0]->getCanMove()
                && (this->currentMoveDirection == Direction::RIGHT ||
-                this->currentMoveDirection == Direction::LEFT);
+                   this->currentMoveDirection == Direction::LEFT);
     }
 
     bool SnakeNervousSystem::canMoveLeft ()
@@ -225,13 +225,15 @@ namespace Snake
     {
         //TODO addWillMove and position set don't work correctly here if last part (not what growing) gonna move somewhere
         size_t bodyLength = this->getBodyLength();
-        position_t lastBodyPosition = this->bodies.back()->getPosition();
+        spSnakeBody lastBody = this->bodies.back();
+        position_t lastBodyPosition = lastBody->getPosition();
+        char lastBodyDirection = lastBody->directon;
         unit_size_t bodySize = this->bodySize;
         double positionX;
         double positionY;
 
         this->checkDirection(
-                this->getOneBody(bodyLength - 1)->directon,
+                lastBodyDirection,
                 [&] () //up
                 {
                     positionX = lastBodyPosition.x;
@@ -256,24 +258,28 @@ namespace Snake
 
         this->addBody(new SnakeBody({positionX, positionY}, this->bodySize));
 
-        spSnakeBody body = this->bodies.back();
-        std::deque<GameObject::will_move_t> beforeLastBodyWillMoves = this->getOneBody(this->getBodyLength() - 2)->getWillMoves();
-        size_t beforeLastBodyWillMovesLength = beforeLastBodyWillMoves.size();
 
-        for (unsigned long index = 1; index <= beforeLastBodyWillMovesLength; index++)
+        spSnakeBody currentBody = this->bodies.back();
+        std::deque <GameObject::will_move_t> lastBodyWillMoves =
+                this->getOneBody(this->getBodyLength() - 2)->getWillMoves();
+        size_t lastBodyWillMovesLength = lastBodyWillMoves.size();
+
+        for (unsigned long index = 0; index < lastBodyWillMovesLength; index++)
         {
-            unsigned long steps = (index > 1) ? index - 1 : index;
-            char direction = beforeLastBodyWillMoves[index].direction;
+            will_move_t lastBodyCurrentWillMove = lastBodyWillMoves[index];
+
+            unsigned long steps = lastBodyCurrentWillMove.steps + 1;
+            char direction = lastBodyCurrentWillMove.direction;
 
             direction = (direction != Direction::RIGHT && direction != Direction::UP
                          && direction != Direction::LEFT && direction != Direction::DOWN)
                         ? this->currentMoveDirection
                         : direction;
 
-            body->addWillMove(steps, direction);
+            currentBody->addWillMove(steps, direction);
         }
 
-        this->goSomewhere(this->bodies[bodyLength - 2]->directon, bodyLength);
+        this->goSomewhere(lastBodyDirection, bodyLength);
     }
 
     void SnakeNervousSystem::checkDirection (char direction, function <void ()> up, function <void ()> left,
