@@ -6,6 +6,11 @@ namespace System
 {
     Game::Game ()
     {
+
+    }
+
+    void Game::make ()
+    {
         float bodySizeX = oxygine::getStage()->getWidth() / 50;
         float bodySizeY = oxygine::getStage()->getHeight() /
                           (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()));
@@ -18,13 +23,18 @@ namespace System
     void Game::start ()
     {
         this->snakeNervousSystem->start();
+        this->started = true;
     }
 
     void Game::check ()
     {
-        this->snakeNervousSystem->check();
-
-        this->foodCheck();
+        if (this->started)
+        {
+            this->snakeNervousSystem->check();
+            this->foodCheck();
+            
+            oxygine::sleep(100);
+        }
     }
 
     void Game::foodCheck ()

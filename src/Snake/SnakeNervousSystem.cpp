@@ -1,6 +1,5 @@
 #include "SnakeNervousSystem.h"
 #include "oxygine-framework.h"
-#include "../Food/SmallFood.h"
 
 namespace Snake
 {
@@ -16,12 +15,12 @@ namespace Snake
 
     void SnakeNervousSystem::start ()
     {
-        this->currentMoveDirection = GameObject::Direction::RIGHT;
+        this->currentMoveDirection = Direction::RIGHT;
 
         throughAllBody([this] (unsigned long index)
         {
-            this->bodies[index]->directon = this->currentMoveDirection;
-            this->bodies[index]->goRight(nullptr);
+            this->getOneBody(index)->direction = this->currentMoveDirection;
+            this->getOneBody(index)->goRight(nullptr);
         });
     }
 
@@ -33,28 +32,28 @@ namespace Snake
         {
             if (index > 0)
             {
-                std::deque <GameObject::will_move_t> willMove = this->bodies[index]->getWillMoves();
-                unsigned long willMoveLength = this->bodies[index]->willMoves.size();
+                deque<will_move_t> willMove = this->getOneBody(index)->getWillMoves();
+                unsigned long willMoveLength = this->getOneBody(index)->willMoves.size();
 
                 if (willMoveLength > 0)
                 {
                     for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
                     {
-                        this->bodies[index]->willMoves[moveIndex].steps =
-                                this->bodies[index]->willMoves[moveIndex].steps - 1;
+                        this->getOneBody(index)->willMoves[moveIndex].steps
+                                = this->getOneBody(index)->willMoves[moveIndex].steps - 1;
                     }
 
-                    if (this->bodies[index]->willMoves[0].steps <= 0)
+                    if (this->getOneBody(index)->willMoves[0].steps <= 0)
                     {
-                        this->bodies[index]->directon = this->bodies[index]->willMoves[0].direction;
-                        this->bodies[index]->removeFirstMove();
+                        this->getOneBody(index)->direction = this->getOneBody(index)->willMoves[0].direction;
+                        this->getOneBody(index)->removeFirstMove();
                     }
                 }
             }
 
-            this->goSomewhere(this->bodies[index]->directon, index);
+            this->goSomewhere(this->getOneBody(index)->direction, index);
         });
-    }
+
 
     void SnakeNervousSystem::addBody (spSnakeBody snakeBody)
     {
@@ -78,62 +77,9 @@ namespace Snake
         {
             throughAllBody([this, direction] (unsigned long index)
             {
-                this->bodies[index]->addWillMove(index + 1, direction);
+                this->getOneBody(index)->addWillMove(index + 1, direction);
             }, 1);
         }
-    }
-
-    void SnakeNervousSystem::move (unsigned long index, char direction)
-    {
-        this->canMove = false;
-
-        this->bodies[index]->directon = this->currentMoveDirection = direction;
-
-        addWillMoveForAllBodies(direction, index);
-    }
-
-    void SnakeNervousSystem::moveUp (unsigned long bodyIndex)
-    {
-        this->move(bodyIndex, Direction::UP);
-    }
-
-    void SnakeNervousSystem::moveLeft (unsigned long bodyIndex)
-    {
-        this->move(bodyIndex, Direction::LEFT);
-    }
-
-    void SnakeNervousSystem::moveDown (unsigned long bodyIndex)
-    {
-        this->move(bodyIndex, Direction::DOWN);
-    }
-
-    void SnakeNervousSystem::moveRight (unsigned long bodyIndex)
-    {
-        this->move(bodyIndex, Direction::RIGHT);
-    }
-
-    bool SnakeNervousSystem::canMoveUp ()
-    {
-        return this->bodies[0]->getCanMove()
-               && (this->currentMoveDirection == Direction::RIGHT ||
-                   this->currentMoveDirection == Direction::LEFT);
-    }
-
-    bool SnakeNervousSystem::canMoveLeft ()
-    {
-        return bodies[0]->getCanMove()
-               && (currentMoveDirection == GameObject::Direction::UP ||
-                   currentMoveDirection == GameObject::Direction::DOWN);
-    }
-
-    bool SnakeNervousSystem::canMoveDown ()
-    {
-        return canMoveUp();
-    }
-
-    bool SnakeNervousSystem::canMoveRight ()
-    {
-        return canMoveLeft();
     }
 
     void SnakeNervousSystem::pressArrow (Event* ev)
@@ -188,11 +134,6 @@ namespace Snake
 
     }
 
-    size_t SnakeNervousSystem::getBodyLength ()
-    {
-        return this->bodies.size();
-    }
-
     void SnakeNervousSystem::grow ()
     {
         this->growSetBody();
@@ -209,7 +150,7 @@ namespace Snake
         double positionY;
 
         this->checkDirection(
-                lastBody->directon
+                lastBody->direction
                 , [&] () //up
                 {
                     positionX = lastBodyPosition.x;
@@ -257,11 +198,11 @@ namespace Snake
     {
         size_t bodyLength = this->getBodyLength();
 
-        this->goSomewhere(this->getOneBody(bodyLength - 2)->directon, bodyLength - 1);
+        this->goSomewhere(this->getOneBody(bodyLength - 2)->direction, bodyLength - 1);
     }
 
-    void SnakeNervousSystem::checkDirection (char direction, function <void ()> up, function <void ()> left,
-                                             function <void ()> down, function <void ()> right)
+    void SnakeNervousSystem::checkDirection (char direction, function <void ()> up, function <void ()> left
+                                             , function <void ()> down, function <void ()> right)
     {
         switch (direction)
         {
@@ -293,6 +234,66 @@ namespace Snake
                 [body] () { body->goDown(nullptr); },
                 [body] () { body->goRight(nullptr); }
         );
+    }
+
+
+
+    void SnakeNervousSystem::move (unsigned long index, char direction)
+    {
+        this->canMove = false;
+
+        this->getOneBody(index)->direction = this->currentMoveDirection = direction;
+
+        addWillMoveForAllBodies(direction, index);
+    }
+
+    void SnakeNervousSystem::moveUp (unsigned long bodyIndex)
+    {
+        this->move(bodyIndex, Direction::UP);
+    }
+
+    void SnakeNervousSystem::moveLeft (unsigned long bodyIndex)
+    {
+        this->move(bodyIndex, Direction::LEFT);
+    }
+
+    void SnakeNervousSystem::moveDown (unsigned long bodyIndex)
+    {
+        this->move(bodyIndex, Direction::DOWN);
+    }
+
+    void SnakeNervousSystem::moveRight (unsigned long bodyIndex)
+    {
+        this->move(bodyIndex, Direction::RIGHT);
+    }
+
+    bool SnakeNervousSystem::canMoveUp ()
+    {
+        return this->bodies[0]->getCanMove()
+               && (this->currentMoveDirection == Direction::RIGHT
+                   || this->currentMoveDirection == Direction::LEFT);
+    }
+
+    bool SnakeNervousSystem::canMoveLeft ()
+    {
+        return bodies[0]->getCanMove()
+               && (currentMoveDirection == Direction::UP
+                   || currentMoveDirection == Direction::DOWN);
+    }
+
+    bool SnakeNervousSystem::canMoveDown ()
+    {
+        return canMoveUp();
+    }
+
+    bool SnakeNervousSystem::canMoveRight ()
+    {
+        return canMoveLeft();
+    }
+
+    size_t SnakeNervousSystem::getBodyLength ()
+    {
+        return this->bodies.size();
     }
 
     spSnakeBody SnakeNervousSystem::getOneBody (unsigned long index)

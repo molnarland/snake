@@ -3,7 +3,7 @@
 
 namespace Snake
 {
-    SnakeBody::SnakeBody (GameObject::position_t startPosition, unit_size_t snakeBodySize)
+    SnakeBody::SnakeBody (position_t startPosition, unit_size_t snakeBodySize)
     {
         this->_positionX = startPosition.x;
         this->_positionY = startPosition.y;
@@ -21,7 +21,7 @@ namespace Snake
         this->willMoves.push_back({steps, direction});
     }
 
-    std::deque<GameObject::will_move_t> SnakeBody::getWillMoves ()
+    std::deque<will_move_t> SnakeBody::getWillMoves ()
     {
         return this->willMoves;
     }
@@ -46,7 +46,7 @@ namespace Snake
         if (this->_canMove)
         {
             this->_positionY -= this->stepSize.y;
-            this->directon = GameObject::Direction::UP;
+            this->direction = Direction::UP;
         }
         else
         {
@@ -61,7 +61,7 @@ namespace Snake
         if (this->_canMove)
         {
             this->_positionX -= this->stepSize.x;
-            this->directon = GameObject::Direction::LEFT;
+            this->direction = Direction::LEFT;
         }
         else
         {
@@ -76,7 +76,7 @@ namespace Snake
         if (this->_canMove)
         {
             this->_positionY += this->stepSize.y;
-            this->directon = GameObject::Direction::DOWN;
+            this->direction = Direction::DOWN;
         }
         else
         {
@@ -91,7 +91,7 @@ namespace Snake
         if (this->_canMove)
         {
             this->_positionX += this->stepSize.x;
-            this->directon = GameObject::Direction::RIGHT;
+            this->direction = Direction::RIGHT;
         }
         else
         {
@@ -106,7 +106,7 @@ namespace Snake
         this->addTween(ColorRectSprite::TweenPosition((int) this->_positionX, (int) this->_positionY), 1);
     }
 
-    GameObject::position_t SnakeBody::getPosition ()
+    position_t SnakeBody::getPosition ()
     {
         return {this->_positionX, this->_positionY};
     }

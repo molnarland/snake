@@ -20,7 +20,7 @@ namespace Food
             return this->point;
         }
 
-        virtual GameObject::position_t getCurrentPosition ()
+        virtual position_t getCurrentPosition ()
         {
             return {this->positionX, this->positionY};
         }

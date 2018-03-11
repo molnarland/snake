@@ -9,36 +9,35 @@
 #include "../Objects/WillMove.h"
 #include "../Objects/Size.h"
 #include "../Objects/StepSize.h"
-//#include "../Objects/StepSize.h"
+#include "../Objects/StepSize.h"
 
 using namespace oxygine;
+using namespace GameObject;
 
 namespace Snake
 {
     class SnakeBody : public ColorRectSprite
     {
     public:
-        SnakeBody (GameObject::position_t startPosition, unit_size_t snakeBodySize);
+        SnakeBody (position_t startPosition, unit_size_t snakeBodySize);
 
         void goUp (Event*);
         void goRight (Event*);
         void goDown (Event*);
         void goLeft (Event*);
 
-        void setDirection (GameObject::Direction direction);
-
         void setCanMove (bool canMove);
         bool getCanMove ();
 
         void addWillMove (unsigned long steps, char direction);
-        std::deque<GameObject::will_move_t> getWillMoves ();
+        std::deque<will_move_t> getWillMoves ();
         void removeFirstMove ();
 
-        std::deque<GameObject::will_move_t> willMoves;
+        std::deque<will_move_t> willMoves;
 
-        char directon;
+        char direction;
 
-        GameObject::position_t getPosition ();
+        position_t getPosition ();
 
     private:
         double _positionX;

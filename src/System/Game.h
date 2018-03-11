@@ -18,9 +18,11 @@ namespace System
     {
     public:
         Game ();
+        void make ();
         void start ();
         void check ();
 
+        bool started = false;
     private:
         SnakeNervousSystem* snakeNervousSystem;
         IFood* food;
