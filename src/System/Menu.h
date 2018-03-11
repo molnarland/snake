@@ -16,7 +16,7 @@ namespace System
     class Menu: public ColorRectSprite
     {
     public:
-        Menu ();
+        Menu (Game* game);
         ~Menu ();
 
         Game* start (Event*);
@@ -33,7 +33,6 @@ namespace System
         unit_size_t getNextItemSize();
 
         Game* game;
-
     };
 }
 

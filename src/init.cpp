@@ -19,22 +19,14 @@ void init ()
                       (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()))
     };*/
 
-    menu = new Menu();
+
+    game = new Game();
+    menu = new Menu(game);
 }
 
 void update ()
 {
-//    if (firstMove)
-//    {
-//        firstMove = false;
-//        game->start();
-//    }
-//    else
-//    {
-//        game->check();
-//    }
-//
-//    oxygine::sleep(100);
+    game->check();
 }
 
 void destroy () {}
