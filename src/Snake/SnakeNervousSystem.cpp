@@ -53,24 +53,6 @@ namespace Snake
             }
 
             this->goSomewhere(this->bodies[index]->directon, index);
-
-            /*switch (bodies[index]->direction)
-            {
-                case GameObject::Direction::UP:
-                    bodies[index]->goUp(nullptr);
-                    break;
-                case GameObject::Direction::LEFT:
-                    bodies[index]->goLeft(nullptr);
-                    break;
-                case GameObject::Direction::DOWN:
-                    bodies[index]->goDown(nullptr);
-                    break;
-                case GameObject::Direction::RIGHT:
-                    bodies[index]->goRight(nullptr);
-                    break;
-                default:
-                    break;
-            }*/
         });
     }
 
@@ -220,7 +202,7 @@ namespace Snake
 
     void SnakeNervousSystem::growSetBody ()
     {
-        spSnakeBody lastBody = this->bodies.back();
+        spSnakeBody lastBody = this->getTail();
         position_t lastBodyPosition = lastBody->getPosition();
         unit_size_t bodySize = this->bodySize;
         double positionX;
@@ -255,7 +237,7 @@ namespace Snake
 
     void SnakeNervousSystem::growSetWillMoves ()
     {
-        spSnakeBody currentBody = this->bodies.back();
+        spSnakeBody newBody = this->getTail();
         std::deque <GameObject::will_move_t> lastBodyWillMoves
                 = this->getOneBody(this->getBodyLength() - 2)->getWillMoves();
         size_t lastBodyWillMovesLength = lastBodyWillMoves.size();
@@ -267,12 +249,7 @@ namespace Snake
             unsigned long steps = lastBodyCurrentWillMove.steps + 1;
             char direction = lastBodyCurrentWillMove.direction;
 
-            direction = (direction != Direction::RIGHT && direction != Direction::UP
-                         && direction != Direction::LEFT && direction != Direction::DOWN)
-                        ? this->currentMoveDirection
-                        : direction;
-
-            currentBody->addWillMove(steps, direction);
+            newBody->addWillMove(steps, direction);
         }
     }
 
