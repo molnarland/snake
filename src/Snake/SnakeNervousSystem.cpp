@@ -29,31 +29,32 @@ namespace Snake
         this->canMove = true;
 
         this->throughAllBody([this] (unsigned long index)
-        {
-            if (index > 0)
-            {
-                deque<will_move_t> willMove = this->getOneBody(index)->getWillMoves();
-                unsigned long willMoveLength = this->getOneBody(index)->willMoves.size();
+         {
+             if (index > 0)
+             {
+                 deque<will_move_t> willMove = this->getOneBody(index)->getWillMoves();
+                 unsigned long willMoveLength = this->getOneBody(index)->willMoves.size();
 
-                if (willMoveLength > 0)
-                {
-                    for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
-                    {
-                        this->getOneBody(index)->willMoves[moveIndex].steps
-                                = this->getOneBody(index)->willMoves[moveIndex].steps - 1;
-                    }
+                 if (willMoveLength > 0)
+                 {
+                     for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
+                     {
+                         this->getOneBody(index)->willMoves[moveIndex].steps
+                                 = this->getOneBody(index)->willMoves[moveIndex].steps - 1;
+                     }
 
-                    if (this->getOneBody(index)->willMoves[0].steps <= 0)
-                    {
-                        this->getOneBody(index)->direction = this->getOneBody(index)->willMoves[0].direction;
-                        this->getOneBody(index)->removeFirstMove();
-                    }
-                }
-            }
+                     if (this->getOneBody(index)->willMoves[0].steps <= 0)
+                     {
+                         this->getOneBody(index)->direction = this->getOneBody(index)
+                                                                  ->willMoves[0].direction;
+                         this->getOneBody(index)->removeFirstMove();
+                     }
+                 }
+             }
 
-            this->goSomewhere(this->getOneBody(index)->direction, index);
-        });
-
+             this->goSomewhere(this->getOneBody(index)->direction, index);
+         });
+    }
 
     void SnakeNervousSystem::addBody (spSnakeBody snakeBody)
     {
