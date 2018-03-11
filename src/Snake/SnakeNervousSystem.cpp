@@ -211,45 +211,39 @@ namespace Snake
         return this->bodies.size();
     }
 
-    spSnakeBody SnakeNervousSystem::getOneBody (unsigned long index)
-    {
-        return this->bodies[index];
-    }
-
-    spSnakeBody SnakeNervousSystem::getHead ()
-    {
-        return this->getOneBody(0);
-    }
-
     void SnakeNervousSystem::grow ()
     {
-        //TODO addWillMove and position set don't work correctly here if last part (not what growing) gonna move somewhere
-        size_t bodyLength = this->getBodyLength();
+        this->growSetBody();
+        this->growSetWillMoves();
+        this->growSetCurrentMove();
+    }
+
+    void SnakeNervousSystem::growSetBody ()
+    {
         spSnakeBody lastBody = this->bodies.back();
         position_t lastBodyPosition = lastBody->getPosition();
-        char lastBodyDirection = lastBody->directon;
         unit_size_t bodySize = this->bodySize;
         double positionX;
         double positionY;
 
         this->checkDirection(
-                lastBodyDirection,
-                [&] () //up
+                lastBody->directon
+                , [&] () //up
                 {
                     positionX = lastBodyPosition.x;
                     positionY = lastBodyPosition.y + bodySize.height * 2;
-                },
-                [&] () //left
+                }
+                , [&] () //left
                 {
                     positionX = lastBodyPosition.x + bodySize.width * 2;
                     positionY = lastBodyPosition.y;
-                },
-                [&] () //down
+                }
+                , [&] () //down
                 {
                     positionX = lastBodyPosition.x;
                     positionY = lastBodyPosition.y - bodySize.height * 2;
-                },
-                [&] () //right
+                }
+                , [&] () //right
                 {
                     positionX = lastBodyPosition.x - bodySize.width * 2;
                     positionY = lastBodyPosition.y;
@@ -257,11 +251,13 @@ namespace Snake
         );
 
         this->addBody(new SnakeBody({positionX, positionY}, this->bodySize));
+    }
 
-
+    void SnakeNervousSystem::growSetWillMoves ()
+    {
         spSnakeBody currentBody = this->bodies.back();
-        std::deque <GameObject::will_move_t> lastBodyWillMoves =
-                this->getOneBody(this->getBodyLength() - 2)->getWillMoves();
+        std::deque <GameObject::will_move_t> lastBodyWillMoves
+                = this->getOneBody(this->getBodyLength() - 2)->getWillMoves();
         size_t lastBodyWillMovesLength = lastBodyWillMoves.size();
 
         for (unsigned long index = 0; index < lastBodyWillMovesLength; index++)
@@ -278,8 +274,13 @@ namespace Snake
 
             currentBody->addWillMove(steps, direction);
         }
+    }
 
-        this->goSomewhere(lastBodyDirection, bodyLength);
+    void SnakeNervousSystem::growSetCurrentMove ()
+    {
+        size_t bodyLength = this->getBodyLength();
+
+        this->goSomewhere(this->getOneBody(bodyLength - 2)->directon, bodyLength - 1);
     }
 
     void SnakeNervousSystem::checkDirection (char direction, function <void ()> up, function <void ()> left,
@@ -315,5 +316,20 @@ namespace Snake
                 [body] () { body->goDown(nullptr); },
                 [body] () { body->goRight(nullptr); }
         );
+    }
+
+    spSnakeBody SnakeNervousSystem::getOneBody (unsigned long index)
+    {
+        return this->bodies[index];
+    }
+
+    spSnakeBody SnakeNervousSystem::getHead ()
+    {
+        return this->bodies.front();
+    }
+
+    spSnakeBody SnakeNervousSystem::getTail ()
+    {
+        return this->bodies.back();
     }
 }

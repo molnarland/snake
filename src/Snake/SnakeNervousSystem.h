@@ -24,6 +24,7 @@ namespace Snake
 
         spSnakeBody getOneBody (unsigned long index);
         spSnakeBody getHead ();
+        spSnakeBody getTail ();
 
     protected:
         void moveUp (unsigned long index = 0);
@@ -43,10 +44,12 @@ namespace Snake
         bool canMove = true;
 
         void pressArrow (Event* ev);
-
         void throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from = 0);
-
         void addWillMoveForAllBodies (char direction, unsigned long bodyIndex);
+
+        void growSetBody ();
+        void growSetWillMoves ();
+        void growSetCurrentMove ();
 
         bool canMoveUp ();
         bool canMoveLeft ();
