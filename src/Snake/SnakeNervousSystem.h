@@ -15,7 +15,6 @@ namespace Snake
     {
     public:
         SnakeNervousSystem (unit_size_t snakeBodySize);
-//        ~SnakeNervousSystem () {};
 
         void check ();
         void start ();

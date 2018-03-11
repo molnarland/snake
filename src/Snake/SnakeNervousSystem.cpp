@@ -4,9 +4,7 @@
 
 namespace Snake
 {
-
-
-    SnakeNervousSystem::SnakeNervousSystem (unit_size_t snakeBodySize)
+    SnakeNervousSystem::SnakeNervousSystem (unit_size_t snakeBodySize) : DELAY(100)
     {
         this->bodySize = snakeBodySize;
 
@@ -35,27 +33,21 @@ namespace Snake
         {
             if (index > 0)
             {
-                std::deque <GameObject::will_move_t> willMove = bodies[index]->getWillMoves();
-                unsigned long willMoveLength = bodies[index]->willMoves.size();
+                std::deque <GameObject::will_move_t> willMove = this->bodies[index]->getWillMoves();
+                unsigned long willMoveLength = this->bodies[index]->willMoves.size();
 
                 if (willMoveLength > 0)
                 {
                     for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
                     {
-                        bodies[index]->willMoves[moveIndex].steps = bodies[index]->willMoves[moveIndex].steps - 1;
-//                        printf("%d \n  ", bodies[index]->willMoves[moveIndex].steps);
+                        this->bodies[index]->willMoves[moveIndex].steps =
+                                this->bodies[index]->willMoves[moveIndex].steps - 1;
                     }
 
-//                    if (index == bodies.size()-1)
-//                    {
-//                        printf("%d \n", bodies[index]->willMoves[0].steps);
-//                    }
-
-//                    printf("%lu \n", bodies[index]->willMoves[0].steps);
-                    if (bodies[index]->willMoves[0].steps <= 0)
+                    if (this->bodies[index]->willMoves[0].steps <= 0)
                     {
-                        bodies[index]->directon = bodies[index]->willMoves[0].direction;
-                        bodies[index]->removeFirstMove();
+                        this->bodies[index]->directon = this->bodies[index]->willMoves[0].direction;
+                        this->bodies[index]->removeFirstMove();
                     }
                 }
             }
@@ -80,24 +72,17 @@ namespace Snake
                     break;
             }*/
         });
-
-
-        if (bodies[bodies.size()-1]->willMoves.size() > 0)
-        {
-//            log::messageln("%d - %c", bodies[bodies.size() - 1]->willMoves[0].steps,
-//                    bodies[bodies.size() - 1]->willMoves[0].direction);
-        }
     }
 
     void SnakeNervousSystem::addBody (spSnakeBody snakeBody)
     {
         getStage()->addChild(snakeBody);
-        bodies.push_back(snakeBody);
+        this->bodies.push_back(snakeBody);
     }
 
     void SnakeNervousSystem::throughAllBody (std::function <void (unsigned long index)> callback, unsigned long from)
     {
-        unsigned long snakeLength = bodies.size();
+        unsigned long snakeLength = this->bodies.size();
 
         for (unsigned long index = from; index < snakeLength; index++)
         {
@@ -111,7 +96,7 @@ namespace Snake
         {
             throughAllBody([this, direction] (unsigned long index)
             {
-                bodies[index]->addWillMove(index + 1, direction);
+                this->bodies[index]->addWillMove(index + 1, direction);
             }, 1);
         }
     }
@@ -120,36 +105,36 @@ namespace Snake
     {
         this->canMove = false;
 
-        bodies[index]->directon = currentMoveDirection = direction;
+        this->bodies[index]->directon = this->currentMoveDirection = direction;
 
         addWillMoveForAllBodies(direction, index);
     }
 
     void SnakeNervousSystem::moveUp (unsigned long bodyIndex)
     {
-        move(bodyIndex, GameObject::Direction::UP);
+        this->move(bodyIndex, Direction::UP);
     }
 
     void SnakeNervousSystem::moveLeft (unsigned long bodyIndex)
     {
-        move(bodyIndex, GameObject::Direction::LEFT);
+        this->move(bodyIndex, Direction::LEFT);
     }
 
     void SnakeNervousSystem::moveDown (unsigned long bodyIndex)
     {
-        move(bodyIndex, GameObject::Direction::DOWN);
+        this->move(bodyIndex, Direction::DOWN);
     }
 
     void SnakeNervousSystem::moveRight (unsigned long bodyIndex)
     {
-        move(bodyIndex, GameObject::Direction::RIGHT);
+        this->move(bodyIndex, Direction::RIGHT);
     }
 
     bool SnakeNervousSystem::canMoveUp ()
     {
-        return bodies[0]->getCanMove()
-               && (currentMoveDirection == GameObject::Direction::RIGHT ||
-                   currentMoveDirection == GameObject::Direction::LEFT);
+        return this->bodies[0]->getCanMove()
+               && (this->currentMoveDirection == Direction::RIGHT ||
+                this->currentMoveDirection == Direction::LEFT);
     }
 
     bool SnakeNervousSystem::canMoveLeft ()
@@ -269,8 +254,6 @@ namespace Snake
                 }
         );
 
-//        log::messageln("old: %d × %d - new: %d × %d", lastBodyPosition.x, lastBodyPosition.y, positionX, positionY);
-
         this->addBody(new SnakeBody({positionX, positionY}, this->bodySize));
 
         spSnakeBody body = this->bodies.back();
@@ -279,10 +262,6 @@ namespace Snake
 
         for (unsigned long index = 1; index <= beforeLastBodyWillMovesLength; index++)
         {
-//            printf("blaa %lu - %c - %d \n", beforeLastBodyWillMoves[index].steps, beforeLastBodyWillMoves[index].direction, beforeLastBodyWillMoves[index].direction);
-
-//            printf("blaaa %lu - %lu \n", beforeLastBodyWillMovesLength, index);
-
             unsigned long steps = (index > 1) ? index - 1 : index;
             char direction = beforeLastBodyWillMoves[index].direction;
 
@@ -291,12 +270,9 @@ namespace Snake
                         ? this->currentMoveDirection
                         : direction;
 
-//            log::messageln("%d - %c :index %d", steps, direction, index);
-
             body->addWillMove(steps, direction);
         }
 
-        //Direction check twice but this way better looking
         this->goSomewhere(this->bodies[bodyLength - 2]->directon, bodyLength);
     }
 
@@ -305,16 +281,16 @@ namespace Snake
     {
         switch (direction)
         {
-            case GameObject::Direction::UP:
+            case Direction::UP:
                 up();
                 break;
-            case GameObject::Direction::LEFT:
+            case Direction::LEFT:
                 left();
                 break;
-            case GameObject::Direction::DOWN:
+            case Direction::DOWN:
                 down();
                 break;
-            case GameObject::Direction::RIGHT:
+            case Direction::RIGHT:
                 right();
                 break;
             default:

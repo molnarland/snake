@@ -5,14 +5,14 @@ namespace Snake
 {
     SnakeBody::SnakeBody (GameObject::position_t startPosition, unit_size_t snakeBodySize)
     {
-        _positionX = startPosition.x;
-        _positionY = startPosition.y;
-        size = snakeBodySize;
-        stepSize = {size.width, size.height};
+        this->_positionX = startPosition.x;
+        this->_positionY = startPosition.y;
+        this->size = snakeBodySize;
+        this->stepSize = {size.width, size.height};
 
-        setSize(size.width, size.height);
+        setSize(this->size.width, this->size.height);
         setColor(0, 0, 0, 255);
-        setPosition((float) _positionX, (float) _positionY);
+        setPosition((float) this->_positionX, (float) this->_positionY);
         attachTo(getStage());
     }
 
@@ -33,81 +33,81 @@ namespace Snake
 
     bool SnakeBody::getCanMove ()
     {
-        return _canMove;
+        return this->_canMove;
     }
 
     void SnakeBody::setCanMove (bool canMove)
     {
-        _canMove = canMove;
+        this->_canMove = canMove;
     }
 
     void SnakeBody::goUp (Event *)
     {
-        if (_canMove)
+        if (this->_canMove)
         {
-            _positionY -= stepSize.y;
-            directon = GameObject::Direction::UP;
+            this->_positionY -= this->stepSize.y;
+            this->directon = GameObject::Direction::UP;
         }
         else
         {
-            setCanMove(true);
+            this->setCanMove(true);
         }
 
-        go(CLOSURE(this, &SnakeBody::goUp));
+        this->go(CLOSURE(this, &SnakeBody::goUp));
     }
 
     void SnakeBody::goLeft (Event *)
     {
-        if (_canMove)
+        if (this->_canMove)
         {
-            _positionX -= stepSize.x;
-            directon = GameObject::Direction::LEFT;
+            this->_positionX -= this->stepSize.x;
+            this->directon = GameObject::Direction::LEFT;
         }
         else
         {
-            setCanMove(true);
+            this->setCanMove(true);
         }
 
-        go(CLOSURE(this, &SnakeBody::goLeft));
+        this->go(CLOSURE(this, &SnakeBody::goLeft));
     }
 
     void SnakeBody::goDown (Event *)
     {
-        if (_canMove)
+        if (this->_canMove)
         {
-            _positionY += stepSize.y;
-            directon = GameObject::Direction::DOWN;
+            this->_positionY += this->stepSize.y;
+            this->directon = GameObject::Direction::DOWN;
         }
         else
         {
-            setCanMove(true);
+            this->setCanMove(true);
         }
 
-        go(CLOSURE(this, &SnakeBody::goDown));
+        this->go(CLOSURE(this, &SnakeBody::goDown));
     }
 
     void SnakeBody::goRight (Event *)
     {
-        if (_canMove)
+        if (this->_canMove)
         {
-            _positionX += stepSize.x;
-            directon = GameObject::Direction::RIGHT;
+            this->_positionX += this->stepSize.x;
+            this->directon = GameObject::Direction::RIGHT;
         }
         else
         {
-            setCanMove(true);
+            this->setCanMove(true);
         }
 
-        go(CLOSURE(this, &SnakeBody::goRight));
+        this->go(CLOSURE(this, &SnakeBody::goRight));
     }
 
     void SnakeBody::go (const EventCallback &callback)
     {
-        addTween(ColorRectSprite::TweenPosition((int) _positionX, (int) _positionY), 1);
+        this->addTween(ColorRectSprite::TweenPosition((int) this->_positionX, (int) this->_positionY), 1);
     }
 
     GameObject::position_t SnakeBody::getPosition ()
     {
-        return {_positionX, _positionY};
+        return {this->_positionX, this->_positionY};
     }
 }
