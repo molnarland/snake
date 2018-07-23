@@ -17,7 +17,7 @@ add_executable(Snake src/main.cpp src/Objects/Direction.h
 			   src/System/MenuItem.cpp src/System/MenuItem.h src/System/Button/ButtonBlack.cpp
 			   src/System/Button/ButtonBlack.h src/System/Button/AbstractButton.h
 			   src/System/Text/AbstractText.h src/System/Text/TextMainButton.cpp
-			   src/System/Text/TextMainButton.h src/Objects/ButtonTypes.h src/Objects/TextTypes.h src/Global/Percentage.cpp src/Global/Percentage.h src/Wall/SimpleBlackWall.cpp src/Wall/SimpleBlackWall.h src/Wall/AbstractWall.h)
+			   src/System/Text/TextMainButton.h src/Objects/ButtonTypes.h src/Objects/TextTypes.h src/Global/Percentage.cpp src/Global/Percentage.h src/Wall/SimpleBlackWall.cpp src/Wall/SimpleBlackWall.h src/Wall/AbstractWall.h src/Objects/WallTypes.h src/Global/getRandom.cpp src/Global/getRandom.h)
 target_link_libraries(Snake ${OXYGINE_CORE_LIBS})
 
 

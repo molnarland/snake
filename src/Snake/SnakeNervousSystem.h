@@ -19,6 +19,7 @@ namespace Snake
         void check ();
         void start ();
         void grow ();
+        void die();
 
         size_t getBodyLength ();
         spSnakeBody getOneBody (unsigned long index);

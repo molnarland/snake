@@ -8,7 +8,7 @@ namespace Wall
     class SimpleBlackWall : public AbstractWall, public oxygine::ColorRectSprite
     {
     public:
-        SimpleBlackWall (const GameObject::position_t& position);
+        SimpleBlackWall (const GameObject::position_t& position, const GameObject::unit_size_t& size);
 
         void make ();
     };

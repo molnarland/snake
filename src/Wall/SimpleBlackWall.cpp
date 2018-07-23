@@ -2,8 +2,11 @@
 
 namespace Wall
 {
-    SimpleBlackWall::SimpleBlackWall (const GameObject::position_t& position) : AbstractWall(position)
-    {}
+    SimpleBlackWall::SimpleBlackWall (const GameObject::position_t& position, const GameObject::unit_size_t& size)
+    {
+        this->position = position;
+        this->size = size;
+    }
 
     void SimpleBlackWall::make ()
     {
