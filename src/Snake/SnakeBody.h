@@ -1,8 +1,8 @@
 #ifndef SNAKE_SNAKEBODY_H
 #define SNAKE_SNAKEBODY_H
 
-#include <Stage.h>
-#include <ColorRectSprite.h>
+#include <ox/Stage.hpp>
+#include <ox/ColorRectSprite.hpp>
 #include <deque>
 #include "../Objects/Direction.h"
 #include "../Objects/Position.h"

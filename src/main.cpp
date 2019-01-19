@@ -4,9 +4,9 @@
     If you just started here and don't understand the code completely, feel free to come back later.
     You can start from example.cpp and example.h, which main functions are called from here.
 */
-#include "core/oxygine.h"
-#include "Stage.h"
-#include "DebugActor.h"
+#include "ox/oxygine.hpp"
+#include "ox/Stage.hpp"
+#include "ox/DebugActor.hpp"
 #include "init.h"
 
 

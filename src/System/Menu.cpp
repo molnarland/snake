@@ -37,7 +37,7 @@ namespace System
     void Menu::addMenuItems ()
     {
         this->addMenuItem(ButtonBlack, TextMainButton, CLOSURE(this, &Menu::start));
-        this->addMenuItem(ButtonBlack, TextMainButton, [](Event*) { log::messageln("jeeeh"); });
+        this->addMenuItem(ButtonBlack, TextMainButton, [](Event*) { /*log::messageln("jeeeh");*/ });
     }
 
     void Menu::addMenuItem (const ButtonTypes& buttonType, const TextTypes& textType, const EventCallback& callback)

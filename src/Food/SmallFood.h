@@ -1,7 +1,7 @@
 #ifndef SNAKE_SMALLFOOD_H
 #define SNAKE_SMALLFOOD_H
 
-#include <ColorRectSprite.h>
+#include <ox/ColorRectSprite.hpp>
 #include "IFood.h"
 #include "../Objects/Size.h"
 

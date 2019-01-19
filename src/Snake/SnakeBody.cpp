@@ -1,4 +1,4 @@
-#include <core/oxygine.h>
+#include <ox/oxygine.hpp>
 #include "SnakeBody.h"
 
 namespace Snake

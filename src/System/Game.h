@@ -5,7 +5,7 @@
 #ifndef SNAKE_GAME_H
 #define SNAKE_GAME_H
 
-#include <core/oxygine.h>
+#include <ox/oxygine.hpp>
 #include "../Snake/SnakeNervousSystem.h"
 #include "../Food/SmallFood.h"
 
