@@ -70,11 +70,8 @@ namespace System
         {
             GameObject::position_t wallPosition = this->walls[index]->getPosition();
 
-            log::messageln("%d - %d", (int)headPosition.x, (int)wallPosition.x/*, (int)headPosition.y == (int)wallPosition.y*/);
-
             if ((int)headPosition.x == (int)wallPosition.x && (int)headPosition.y == (int)wallPosition.y)
             {
-                log::messageln("blaaaaaaaaaaaaaaaaa");
                 this->finish();
             }
 

@@ -13,7 +13,7 @@ namespace Wall
         virtual void make () = 0;
 
         const GameObject::position_t& getPosition ()
-        { this->position; }
+        { return this->position; }
 
     protected:
         GameObject::position_t position;
