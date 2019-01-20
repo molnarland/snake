@@ -26,14 +26,14 @@ namespace Snake
         spSnakeBody getTail ();
 
     protected:
+        unit_size_t bodySize;
+
+        void addBody (spSnakeBody snakeBody);
+        
         void moveUp (unsigned long index = 0);
         void moveLeft (unsigned long index = 0);
         void moveDown (unsigned long index = 0);
         void moveRight (unsigned long index = 0);
-
-        void addBody (spSnakeBody snakeBody);
-
-        unit_size_t bodySize;
 
     private:
         std::deque <spSnakeBody> bodies;
@@ -55,6 +55,7 @@ namespace Snake
         bool canMoveDown ();
         bool canMoveRight ();
 
+        void setNextMove (unsigned long index);
         void goSomewhere (char direction, unsigned long bodyIndex);
 
         void move (unsigned long index, char direction);

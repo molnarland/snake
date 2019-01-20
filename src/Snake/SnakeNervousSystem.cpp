@@ -29,27 +29,10 @@ namespace Snake
         this->canMove = true;
 
         this->throughAllBody([this] (unsigned long index)
-         {
+        {
              if (index > 0)
              {
-                 deque<will_move_t> willMove = this->getOneBody(index)->getWillMoves();
-                 unsigned long willMoveLength = this->getOneBody(index)->willMoves.size();
-
-                 if (willMoveLength > 0)
-                 {
-                     for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
-                     {
-                         this->getOneBody(index)->willMoves[moveIndex].steps
-                                 = this->getOneBody(index)->willMoves[moveIndex].steps - 1;
-                     }
-
-                     if (this->getOneBody(index)->willMoves[0].steps <= 0)
-                     {
-                         this->getOneBody(index)->direction = this->getOneBody(index)
-                                                                  ->willMoves[0].direction;
-                         this->getOneBody(index)->removeFirstMove();
-                     }
-                 }
+                this->setNextMove(index);                 
              }
 
              this->goSomewhere(this->getOneBody(index)->direction, index);
@@ -222,6 +205,30 @@ namespace Snake
             default:
                 break;
         }
+    }
+
+    void SnakeNervousSystem::setNextMove (unsigned long index)
+    {
+        spSnakeBody currentBody = this->getOneBody(index);
+        deque<will_move_t> willMove = currentBody->getWillMoves();
+        unsigned long willMoveLength = currentBody->willMoves.size();
+
+        if (willMoveLength > 0)
+        {
+            for (unsigned long moveIndex = 0; moveIndex < willMoveLength; moveIndex++)
+            {
+                currentBody->willMoves[moveIndex].steps
+                        = currentBody->willMoves[moveIndex].steps - 1;
+            }
+
+            if (currentBody->willMoves[0].steps <= 0)
+            {
+                currentBody->direction = this->getOneBody(index)
+                                             ->willMoves[0].direction;
+                currentBody->removeFirstMove();
+            }
+        }
+
     }
 
     void SnakeNervousSystem::goSomewhere (char direction, unsigned long bodyIndex)
