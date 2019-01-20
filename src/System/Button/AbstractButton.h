@@ -11,24 +11,27 @@ using namespace oxygine;
 using namespace std;
 using namespace GameObject;
 
-namespace System::Button
+namespace System
 {
-    class AbstractButton : public ColorRectSprite
+    namespace Button
     {
-    public:
-        AbstractButton (const unit_size_t& size, const position_t& position, const EventCallback& callback)
-                : size(size),
-                  position(position),
-                  callback(callback)
-        {};
+        class AbstractButton : public ColorRectSprite
+        {
+        public:
+            AbstractButton (const unit_size_t& size, const position_t& position, const EventCallback& callback)
+                    : size(size),
+                      position(position),
+                      callback(callback)
+            {};
 
-        virtual void make () = 0;
+            virtual void make () = 0;
 
-    protected:
-        const unit_size_t size;
-        const position_t position;
-        const EventCallback callback;
-    };
+        protected:
+            const unit_size_t size;
+            const position_t position;
+            const EventCallback callback;
+        };
+    }
 }
 
 #endif //SNAKE_IBUTTONMAKER_H

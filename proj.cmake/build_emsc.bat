@@ -1,6 +1,6 @@
 call emsdk activate
 
-python ../oxygine/oxygine-framework//tools/others/embed_folder_js.py -s ../data
+python ../../oxygine/oxygine-framework//tools/others/embed_folder_js.py -s ../data
 
 mkdir build_emsc
 cd build_emsc

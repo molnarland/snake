@@ -5,16 +5,18 @@
 #include "../MenuItem.h"
 #include "AbstractButton.h"
 
-namespace System::Button
+namespace System
 {
-    class ButtonBlack: public AbstractButton
+    namespace Button
     {
-    public:
-        ButtonBlack (const unit_size_t& size, const position_t& position, const EventCallback& callback);
+        class ButtonBlack: public AbstractButton
+        {
+        public:
+            ButtonBlack (const unit_size_t& size, const position_t& position, const EventCallback& callback);
 
-        virtual void make ();
-    };
+            virtual void make ();
+        };
+    }
 }
-
 
 #endif //SNAKE_BUTTONBLACKMAKER_H

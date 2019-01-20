@@ -1,24 +1,27 @@
 #include "TextMainButton.h"
 
-namespace System::Text
+namespace System
 {
-    TextMainButton::TextMainButton (const string& text, const string& resourceXmlName)
-            : AbstractText(text, resourceXmlName)
-    {}
-
-    void TextMainButton::make ()
+    namespace Text
     {
-        Resources resources;
-        resources.loadXML(this->resourceXmlName);
+        TextMainButton::TextMainButton (const string& text, const string& resourceXmlName)
+                : AbstractText(text, resourceXmlName)
+        {}
 
-        ResFont* font = resources.getResFont("normal");
-        TextStyle style = TextStyle(font).alignMiddle();
+        void TextMainButton::make ()
+        {
+            Resources resources;
+            resources.loadXML(this->resourceXmlName);
 
-        this->setPosition(0, 0);
-        this->setSize(100, 100);
-        this->setStyle(style);
-        this->setText(this->text);
+            ResFont* font = resources.getResFont("normal");
+            TextStyle style = TextStyle(font).alignMiddle();
 
-        resources.free();
+            this->setPosition(0, 0);
+            this->setSize(100, 100);
+            this->setStyle(style);
+            this->setText(this->text);
+
+            resources.free();
+        }
     }
 }

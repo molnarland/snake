@@ -1,5 +1,6 @@
 
 #include <cstdlib>
+#include <ctime>
 #include "Game.h"
 
 namespace System
@@ -11,9 +12,9 @@ namespace System
 
     void Game::make ()
     {
-        float bodySizeX = oxygine::getStage()->getWidth() / 50;
+        float bodySizeX = oxygine::getStage()->getWidth() / 64;
         float bodySizeY = oxygine::getStage()->getHeight() /
-                          (50 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()));
+                          (96 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()));
 
         this->snakeNervousSystem = new Snake::SnakeNervousSystem({bodySizeX, bodySizeY});
 

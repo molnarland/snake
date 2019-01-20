@@ -4,7 +4,7 @@ using namespace Global;
 
 namespace System
 {
-    Menu::Menu (Game* game) : game(game)
+    Menu::Menu (System::Game* game) : game(game)
     {
         spStage stage = getStage();
         Vector2 stageSize = stage->getSize();
@@ -32,6 +32,8 @@ namespace System
         this->game->start();
 
         this->detach();
+
+        return this->game;
     }
 
     void Menu::addMenuItems ()

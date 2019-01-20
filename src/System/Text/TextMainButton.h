@@ -3,16 +3,18 @@
 
 #include "AbstractText.h"
 
-namespace System::Text
+namespace System
 {
-    class TextMainButton: public AbstractText
+    namespace Text
     {
-    public:
-        TextMainButton (const string& text, const string& resourceXmlName);
+        class TextMainButton: public AbstractText
+        {
+        public:
+            TextMainButton (const string& text, const string& resourceXmlName);
 
-        virtual void make();
+            virtual void make();
+        };
     };
-};
-
+}
 
 #endif //SNAKE_TEXTMAINBUTTON_H
