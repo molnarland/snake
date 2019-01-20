@@ -1,7 +1,3 @@
-//
-// Created by molnarland on 2/18/18.
-//
-
 #ifndef SNAKE_GAME_H
 #define SNAKE_GAME_H
 
@@ -30,12 +26,18 @@ namespace System
     private:
         SnakeNervousSystem* snakeNervousSystem;
         IFood* food;
+        unit_size_t unitSize;
         std::deque<Wall::AbstractWall*> walls;
 
+        void pushWall (position_t position);
+
+        void addBodyToSnake ();
         void checkFood ();
         void checkWall ();
-        void addBodyToSnake ();
         void eatFood ();
+        position_t getPosition (int x, int y);
+        position_t getRandomPosition ();
+        unit_size_t getStageUnitSize ();
         void makeNewFood ();
         void makeWalls (const GameObject::WallTypes& wallType);
     };

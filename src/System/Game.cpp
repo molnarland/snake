@@ -18,8 +18,9 @@ namespace System
         float bodySizeX = oxygine::getStage()->getWidth() / 64;
         float bodySizeY = oxygine::getStage()->getHeight() /
                           (96 / (oxygine::getStage()->getWidth() / oxygine::getStage()->getHeight()));
+        this->unitSize = {bodySizeX, bodySizeY};
 
-        this->snakeNervousSystem = new Snake::SnakeNervousSystem({bodySizeX, bodySizeY});
+        this->snakeNervousSystem = new Snake::SnakeNervousSystem(this->unitSize);
 
         this->makeNewFood();
         this->makeWalls(SimpleBlackWall);
@@ -91,44 +92,70 @@ namespace System
         this->makeNewFood();
     }
 
+    position_t Game::getPosition (int x, int y)
+    {
+        float unitWidth = this->unitSize.width;
+        float unitHeight = this->unitSize.height;
+
+        return {(float) x * unitWidth, (float) y * unitHeight};
+    }
+
+    position_t Game::getRandomPosition ()
+    {
+        unit_size_t stageSize = this->getStageUnitSize();
+        
+        return this->getPosition(
+            Global::getRandom(0, (int) stageSize.width), 
+            Global::getRandom(0, (int) stageSize.height)
+        );
+    }
+
+    unit_size_t Game::getStageUnitSize ()
+    {
+        return {
+            oxygine::getStage()->getWidth() / this->unitSize.width, 
+            oxygine::getStage()->getHeight() / this->unitSize.height
+        };
+    }
+
     void Game::makeNewFood ()
     {
-        float bodyWidth = this->snakeNervousSystem->getHead()->getWidth();
-        float bodyHeight = this->snakeNervousSystem->getHead()->getHeight();
+        this->food = new Food::SmallFood(this->getRandomPosition(), this->unitSize);
+    }
 
-        float stageWidth = oxygine::getStage()->getWidth() / bodyWidth;
-        float stageHeight = oxygine::getStage()->getHeight() / bodyHeight;
-
-        int random1 = Global::getRandom() % (int) stageWidth;
-        int random2 = Global::getRandom() % (int) stageHeight;
-
-        this->food = new Food::SmallFood({random1 * bodyWidth, random2 * bodyHeight}, {bodyWidth, bodyHeight});
+    void Game::pushWall (position_t position)
+    {
+        this->walls.push_back(new Wall::SimpleBlackWall(position, this->unitSize));
     }
 
     void Game::makeWalls (const GameObject::WallTypes& wallType)
     {
-        float bodyWidth = this->snakeNervousSystem->getHead()->getWidth();
-        float bodyHeight = this->snakeNervousSystem->getHead()->getHeight();
-
-        float stageWidth = oxygine::getStage()->getWidth() / bodyWidth;
-        float stageHeight = oxygine::getStage()->getHeight() / bodyHeight;
-
-        int random1 = Global::getRandom() % (int) stageWidth;
-        int random2 = Global::getRandom() % (int) stageHeight;
-
-        Wall::AbstractWall* wall;
-
         switch (wallType)
         {
             case SimpleBlackWall:
-                wall = new Wall::SimpleBlackWall({random1 * bodyWidth, random2 * bodyHeight}, {bodyWidth, bodyHeight});
+                { 
+                    unit_size_t stageSize = this->getStageUnitSize();       
+
+                    for (int index = 0; index < stageSize.width; index++)
+                    {
+                        this->pushWall({this->unitSize.width * index, 0});
+                        this->pushWall({this->unitSize.width * index, stageSize.height * this->unitSize.height - this->unitSize.height});
+                    } 
+
+                    for (int index = 0; index < stageSize.height; index++)
+                    {
+                        this->pushWall({0, this->unitSize.height * index});
+                        this->pushWall({stageSize.width * this->unitSize.width - this->unitSize.width, this->unitSize.height * index});
+                    }
+                }
                 break;
             default:
                 throw "Invalid wall type";
         }
 
-        wall->make();
-
-        this->walls.push_back(wall);
+        for (int index = 0; index < this->walls.size(); index++)
+        {
+            this->walls[index]->make();
+        }
     }
 }
