@@ -6,6 +6,7 @@
 #include "../Food/SmallFood.h"
 #include "../Wall/AbstractWall.h"
 #include "../Objects/WallTypes.h"
+#include "../Objects/Levels.h"
 
 using namespace Snake;
 using namespace Food;
@@ -39,7 +40,7 @@ namespace System
         position_t getRandomPosition ();
         unit_size_t getStageUnitSize ();
         void makeNewFood ();
-        void makeWalls (const GameObject::WallTypes& wallType);
+        void makeWalls (const GameObject::Levels& level, const GameObject::WallTypes& wallType);
     };
 }
 

@@ -1,1 +1,0 @@
-/home/molnarland/Projects/emsdk/emscripten/1.38.24/em++    -s USE_SDL=2 -s USE_LIBPNG=1 -s USE_ZLIB=1 -s FULL_ES2=1  -std=c++11  -s NO_EXIT_RUNTIME=1 -s WARN_ON_UNDEFINED_SYMBOLS=1 -s FORCE_FILESYSTEM=1 --memory-init-file 0 -s TOTAL_MEMORY=50331648 -DNDEBUG -O2  -O2 @CMakeFiles/Snake.dir/objects1.rsp  -o Snake.html @CMakeFiles/Snake.dir/linklibs.rsp

@@ -2,6 +2,6 @@
 cmake-build-debug/
 
 proj.cmake/CMakeLists.txt
-proj.cmake/build/
+proj.cmake/build*/
 data-ram/
 build/

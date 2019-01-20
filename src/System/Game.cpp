@@ -23,7 +23,7 @@ namespace System
         this->snakeNervousSystem = new Snake::SnakeNervousSystem(this->unitSize);
 
         this->makeNewFood();
-        this->makeWalls(SimpleBlackWall);
+        this->makeWalls(Cube, SimpleBlackWall);
     }
 
     void Game::start ()
@@ -128,7 +128,7 @@ namespace System
         this->walls.push_back(new Wall::SimpleBlackWall(position, this->unitSize));
     }
 
-    void Game::makeWalls (const GameObject::WallTypes& wallType)
+    void Game::makeWalls (const GameObject::Levels& level, const GameObject::WallTypes& wallType)
     {
         switch (wallType)
         {

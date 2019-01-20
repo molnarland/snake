@@ -1,1 +1,0 @@
-/home/molnarland/Projects/emsdk/emscripten/1.38.24/emar rc libSnake_1_main_js.a  @CMakeFiles/Snake_1_main_js.dir/objects1.rsp
