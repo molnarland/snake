@@ -1,0 +1,1 @@
+-I/home/molnarland/Projects/oxygine/oxygine-framework/oxygine/third_party/emscripten/pthreads/include -I/home/molnarland/Projects/oxygine/oxygine-framework/oxygine/third_party/emscripten/zlib -I/home/molnarland/Projects/oxygine/oxygine-framework/oxygine/src 
